@@ -106,5 +106,13 @@ public class Venda implements Serializable{
             return new Fila();
         }
     }
+
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
+    }
 }
 
