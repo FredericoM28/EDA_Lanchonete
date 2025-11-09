@@ -70,7 +70,8 @@ public class Pizza implements Serializable {
         
     //metodo para incrementar id da pizza
     private static int incrementarId() {
-        return lerPizza().tamanho() + 1;
+        Fila<Pizza> fila = lerPizza();
+        return fila.tamanho() + 1;
     }
 
     // Getters e Setters
@@ -130,6 +131,7 @@ public class Pizza implements Serializable {
 
         } catch (IOException e) {
             System.out.println("Erro ao gravar: " + e.getMessage());
+            e.printStackTrace(); // mostra o erro completo
             return false;
         }
     }
@@ -153,12 +155,12 @@ public class Pizza implements Serializable {
 
     public static boolean deletePizza(int id) {
         Fila<Pizza> fila = lerPizza();
-        Fila<Pizza> auxiliar = new Fila<>();
+        Fila<Pizza> auxiliar = new Fila();
 
         while (!fila.estaVazia()) {
             Pizza atual = fila.desenfileirar();
 
-            if (atual.getId() == id) {
+            if (atual.getId() != id) {
                 auxiliar.enfileirar(atual);
             }
         }
@@ -184,7 +186,7 @@ public class Pizza implements Serializable {
     }
 
     public static boolean editarPorId(int id, Pizza novaPizza) {
-        Fila<Pizza> auxiliar = new Fila<>();
+        Fila<Pizza> auxiliar = new Fila();
         Fila<Pizza> fila = lerPizza();
 
         while (!fila.estaVazia()) {

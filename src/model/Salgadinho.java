@@ -49,7 +49,7 @@ public class Salgadinho implements Serializable {
         this.massa = massa;
         this.recheio = recheio;
         this.preco = preco;
-        this.idSalgadinho = idSalgadinho++;
+        this.idSalgadinho = idSalgadinho;
     }
 
     public Salgadinho() {
@@ -62,7 +62,8 @@ public class Salgadinho implements Serializable {
     }
     // metodo para incrementar id do salgadinho
     private static int incrementarId() {
-        return lerSalgadinho().tamanho() + 1;
+        Fila<Salgadinho> fila = lerSalgadinho();
+        return fila.tamanho() + 1;
     }
 
     // Getters e Setters
@@ -150,7 +151,7 @@ public class Salgadinho implements Serializable {
         while (!fila.estaVazia()) {
             Salgadinho atual = fila.desenfileirar();
 
-            if (atual.getId() == id) {
+            if (atual.getId() != id) {
                 auxiliar.enfileirar(atual);
             }
         }
@@ -175,7 +176,7 @@ public class Salgadinho implements Serializable {
         }
     }
 
-    public static boolean editarPorId(int id, Salgadinho novoSalgadinho) {
+    public static boolean editar(int id, Salgadinho novoSalgadinho) {
         Fila<Salgadinho> auxiliar = new Fila<>();
         Fila<Salgadinho> fila = lerSalgadinho();
 

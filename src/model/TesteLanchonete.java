@@ -11,6 +11,7 @@ package model;
 public class TesteLanchonete {
 
     public static void main(String[] args) {
+<<<<<<< HEAD
 //
 //        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
 //        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
@@ -30,5 +31,15 @@ public class TesteLanchonete {
 //        lista.mostrarFila();
 
         // Pizza.criarPizza("xyz", "tal", "recheiada", "tal", 1000);
+=======
+
+
+        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
+       // Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
+        Fila<Pizza> lista = Pizza.lerPizza();
+        lista.mostrarFila();
+       Pizza novaPizza = new Pizza("Tuti", "Toamte", "Recheda", "Branco", 200);
+       Pizza.editarPorId(1, novaPizza);
+>>>>>>> 2b8581bbeee1e61ea4cea342d151f985828d2a2a
     }
 }
