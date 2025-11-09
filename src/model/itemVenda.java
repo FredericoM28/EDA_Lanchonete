@@ -35,5 +35,4 @@ public class itemVenda implements Serializable{
     public void setQtd(int Qtd) {
         this.Qtd = Qtd;
     }
-
 }
