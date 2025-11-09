@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import static model.Pizza.gravarPizza;
-import static model.Pizza.lerPizza;
 
 /**
  *
@@ -64,7 +62,7 @@ public class Salgadinho implements Serializable {
     }
     // metodo para incrementar id do salgadinho
     private static int incrementarId() {
-        return lerPizza().tamanho() + 1;
+        return lerSalgadinho().tamanho() + 1;
     }
 
     // Getters e Setters

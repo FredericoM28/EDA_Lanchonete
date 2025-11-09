@@ -12,6 +12,6 @@ public class TesteLanchonete {
 
     public static void main(String[] args) {
 
-
+        Pizza.criarPizza("xyz", "tal", "recheiada", "tal", 1000);
     }
 }
