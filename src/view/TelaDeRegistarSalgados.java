@@ -174,17 +174,37 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo:");
 
-        cbTipoDeSalgado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Assado","Frito"}));
+        cbTipoDeSalgado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Selecione o Tipo","Assado","Frito"}));
 
         jLabel5.setText("Massa:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         tabelaSalgados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,6 +223,11 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tabelaSalgados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaSalgadosMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tabelaSalgados);
@@ -308,6 +333,34 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        controlTelaDeSalgados.registarSalgados();
+        controlTelaDeSalgados.listarSalgados();
+        controlTelaDeSalgados.limparCampos();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        controlTelaDeSalgados.editarPizza();
+        controlTelaDeSalgados.listarSalgados();
+        controlTelaDeSalgados.limparCampos();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        // TODO add your handling code here:
+        controlTelaDeSalgados.deletarSalgado();
+        controlTelaDeSalgados.listarSalgados();
+        controlTelaDeSalgados.limparCampos();
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void tabelaSalgadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaSalgadosMouseClicked
+        controlTelaDeSalgados.selecionarTabelaPizza();
+    }//GEN-LAST:event_tabelaSalgadosMouseClicked
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        controlTelaDeSalgados.limparCampos();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments

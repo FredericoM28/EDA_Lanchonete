@@ -94,8 +94,8 @@ public class ControlTelaDePizza {
         String borda = (String) telaPizza.getCbTipoDeBorda().getSelectedItem();
         String molho = telaPizza.getTfMolho().getText();
         Double preco = Double.valueOf(telaPizza.getTfPreco().getText());
-        Pizza novaPizza = new Pizza(nome, recheio, borda, molho, preco);
-        if (Pizza.editarPorId(id, novaPizza)) {
+       
+        if (Pizza.editarPorId(id, nome, recheio, borda, molho, preco)) {
             JOptionPane.showMessageDialog(null, "Pizza Editada com sucesso");
         } else {
             System.out.println("Erro ao Editar a Pizza");

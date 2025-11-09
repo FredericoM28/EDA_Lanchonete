@@ -176,10 +176,11 @@ public class Salgadinho implements Serializable {
         }
     }
 
-    public static boolean editar(int id, Salgadinho novoSalgadinho) {
+    public static boolean editar(int id, String nomeDoSalgado, String tipo, String massa, String recheio, double preco) {
         Fila<Salgadinho> auxiliar = new Fila<>();
         Fila<Salgadinho> fila = lerSalgadinho();
-
+        Salgadinho novoSalgadinho = new Salgadinho(nomeDoSalgado, tipo, massa, recheio, preco, id);
+        
         while (!fila.estaVazia()) {
             Salgadinho atual = fila.desenfileirar();
 

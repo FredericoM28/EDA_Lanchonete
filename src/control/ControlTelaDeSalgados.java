@@ -18,7 +18,8 @@ import view.TelaDeRegistarSalgados;
  * @author HP
  */
 public class ControlTelaDeSalgados {
-     private final TelaDeRegistarSalgados telaSalgados;
+
+    private final TelaDeRegistarSalgados telaSalgados;
 
     public ControlTelaDeSalgados(TelaDeRegistarSalgados view) {
         this.telaSalgados = view;
@@ -28,11 +29,11 @@ public class ControlTelaDeSalgados {
     public void registarSalgados() {
         String nome = telaSalgados.getTfNome().getText();
         String recheio = telaSalgados.getTfRecheio().getText();
-        String tipoDeSalgado = (String)telaSalgados.getCbTipoDeSalgado().getSelectedItem();
+        String tipoDeSalgado = (String) telaSalgados.getCbTipoDeSalgado().getSelectedItem();
         String massa = (String) telaSalgados.getTfMassa().getText();
         Double preco = Double.valueOf(telaSalgados.getTfPreco().getText());
-        
-        if (Salgadinho.criarSalgadinho(nome,tipoDeSalgado, massa,recheio,preco)) {
+
+        if (Salgadinho.criarSalgadinho(nome, tipoDeSalgado, massa, recheio, preco)) {
             JOptionPane.showMessageDialog(null, "Salgadinho Salva com sucesso");
         } else {
             System.out.println("Erro ao registar a Salgadinho");
@@ -54,8 +55,8 @@ public class ControlTelaDeSalgados {
                 model.addRow(new Object[]{
                     atual.getId(),
                     atual.getNomeSalgado(),
-                    atual.getRecheio(),
                     atual.getTipo(),
+                    atual.getRecheio(),
                     atual.getMassa(),
                     atual.getPreco()
                 });
@@ -65,65 +66,61 @@ public class ControlTelaDeSalgados {
         }
 
     }
-    
-    
+
     //Metodo para limparCampos
     public void limparCampos() {
         telaSalgados.getTdIdSalgado().setText("");
         telaSalgados.getTfNome().setText("");
         telaSalgados.getTfRecheio().setText("");
-        telaSalgados.getTfPreco().setText("");
-        telaSalgados.getTfRecheio().setText("");
-
-        String[] borda = {"Selecione o Tipo", "Assado", "Frito"};
-        String[] tipoDeBorda = new String[borda.length];
-        for (int i = 0; i < tipoDeBorda.length; i++) {
-            tipoDeBorda[i] = borda[i];
+        String[] salgado = {"Selecione o Tipo", "Assado", "Frito"};
+        String[] tipoDeSalgadosa = new String[salgado.length];
+        for (int i = 0; i < tipoDeSalgadosa.length; i++) {
+            tipoDeSalgadosa[i] = salgado[i];
         }
 
-        telaSalgados.get().setModel(new javax.swing.DefaultComboBoxModel<>(tipoDeBorda));
+        telaSalgados.getCbTipoDeSalgado().setModel(new javax.swing.DefaultComboBoxModel<>(tipoDeSalgadosa));
 
-        telaSalgados.getCbTipoDeBorda().setToolTipText("");
-
+        telaSalgados.getTfMassa().setText("");
+        telaSalgados.getTfPreco().setText("");
     }
 
     //Metodo para editar a pizza
     public void editarPizza() {
-        int id = Integer.parseInt(telaSalgados.getTfIdPizza().getText());
+        int id = Integer.parseInt(telaSalgados.getTdIdSalgado().getText());
         String nome = telaSalgados.getTfNome().getText();
         String recheio = telaSalgados.getTfRecheio().getText();
-        String borda = (String) telaSalgados.getCbTipoDeBorda().getSelectedItem();
-        String molho = telaSalgados.getTfMolho().getText();
+        String tipoDeSalgado = (String) telaSalgados.getCbTipoDeSalgado().getSelectedItem();
+        String massa = (String) telaSalgados.getTfMassa().getText();
         Double preco = Double.valueOf(telaSalgados.getTfPreco().getText());
-        Pizza novaPizza = new Pizza(nome, recheio, borda, molho, preco);
-        if (Pizza.editarPorId(id, novaPizza)) {
-            JOptionPane.showMessageDialog(null, "Pizza Editada com sucesso");
+        if (Salgadinho.editar(id, nome,tipoDeSalgado, massa, recheio,preco)) {
+            JOptionPane.showMessageDialog(null, "Salgadinho Editado com sucesso");
         } else {
-            System.out.println("Erro ao Editar a Pizza");
+            System.out.println("Erro ao editar o Salgadinho");
         }
 
     }
 
-    //metodo Para deletar a pizza
-    public void deletarPizza() {
-        int id = Integer.parseInt(telaSalgados.getTfIdPizza().getText());
-        Pizza.deletePizza(id);
+    //metodo Para deletar a Salgado
+    public void deletarSalgado() {
+        int id = Integer.parseInt(telaSalgados.getTdIdSalgado().getText());
+        Salgadinho.deleteSalagadinho(id);
     }
 
-    //Metodo para selecionar a tabela pizza
+    //Metodo para selecionar a tabela Salgado
     public void selecionarTabelaPizza() {
-        int linha = telaSalgados.getTabelaPizza().getSelectedRow();
-        String id = telaSalgados.getTabelaPizza().getValueAt(linha, 0).toString();
-        String nomeDaPizza = telaSalgados.getTabelaPizza().getValueAt(linha, 1).toString();
-        String recheio = telaSalgados.getTabelaPizza().getValueAt(linha, 2).toString();
-        String borda = telaSalgados.getTabelaPizza().getValueAt(linha, 3).toString();
-        String molho = telaSalgados.getTabelaPizza().getValueAt(linha, 4).toString();
-        double preco = Double.parseDouble(telaSalgados.getTabelaPizza().getValueAt(linha, 5).toString());
-        telaSalgados.getTfIdPizza().setText(id + "");
-        telaSalgados.getTfNome().setText(nomeDaPizza + " ");
+        int linha = telaSalgados.getTabelaSalgados().getSelectedRow();
+        String id = telaSalgados.getTabelaSalgados().getValueAt(linha, 0).toString();
+        String nomeDoSalgado = telaSalgados.getTabelaSalgados().getValueAt(linha, 1).toString();
+        String tipoDeSalgado = telaSalgados.getTabelaSalgados().getValueAt(linha, 2).toString();
+        String massa = telaSalgados.getTabelaSalgados().getValueAt(linha, 3).toString();
+        
+        String recheio = telaSalgados.getTabelaSalgados().getValueAt(linha, 4).toString();
+        double preco = Double.parseDouble(telaSalgados.getTabelaSalgados().getValueAt(linha, 5).toString());
+        telaSalgados.getTdIdSalgado().setText(id + "");
+        telaSalgados.getTfNome().setText(nomeDoSalgado + " ");
+          telaSalgados.getCbTipoDeSalgado().setSelectedItem(tipoDeSalgado);
+        telaSalgados.getTfMassa().setText(massa + " ");
         telaSalgados.getTfRecheio().setText(recheio + " ");
-        telaSalgados.getCbTipoDeBorda().setSelectedItem(borda);
-        telaSalgados.getTfMolho().setText(molho + " ");
         telaSalgados.getTfPreco().setText(preco + " ");
 
     }
