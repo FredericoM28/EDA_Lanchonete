@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 /**
  *
  * @author Déleo Cambula
@@ -28,6 +27,9 @@ public class Pizza implements Serializable {
         this.molho = molho;
         this.preco = preco;
         this.idPizza = idPizza++;
+    }
+    
+    public Pizza() {
     }
 
     // Getters e Setters
@@ -63,6 +65,14 @@ public class Pizza implements Serializable {
         this.preco = preco;
     }
     
+    public int getId() {
+        return idPizza;
+    }
+
+    public void setId() {
+        this.idPizza = idPizza;
+    }
+        
     public static Boolean gravarPizza(Pizza pizza) {
         Fila<Pizza> lista = lerPizza();
 
@@ -101,7 +111,118 @@ public class Pizza implements Serializable {
             return new Fila();
         }
     }
+    
+    public static boolean deletePizza(int id){
+        Fila<Pizza> fila = lerPizza();
+        Fila<Pizza> auxiliar = new Fila<>();
+        
+        while (!fila.estaVazia()) {
+            Pizza atual = fila.desenfileirar();
 
+            if (atual.getId() == id) {
+                auxiliar.enfileirar(atual);
+            }
+        }
+        
+        while (!auxiliar.estaVazia()) {
+            fila.enfileirar(auxiliar.desenfileirar());
+        }
+
+        try {
+            FileOutputStream meuFicheiro = new FileOutputStream("Pizza.dat");
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
+            
+            os.writeObject(fila);
+
+            os.close();
+            meuFicheiro.close();
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }        
+    }
+    
+    public static boolean editarPorId( int id, Pizza novaPizza) {
+        Fila<Pizza> auxiliar = new Fila<>();
+        Fila<Pizza> fila = lerPizza();
+
+        while (!fila.estaVazia()) {
+            Pizza atual = fila.desenfileirar();
+
+            if (atual.getId() == id) {
+                auxiliar.enfileirar(novaPizza);
+            } else {
+                auxiliar.enfileirar(atual);
+            }
+        }
+
+        while (!auxiliar.estaVazia()) {
+            fila.enfileirar(auxiliar.desenfileirar());
+        }
+
+        try {
+            FileOutputStream meuFicheiro = new FileOutputStream("Pizza.dat");
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
+            
+            os.writeObject(fila);
+
+            os.close();
+            meuFicheiro.close();
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static void ordenarPorPreco(Fila<Pizza> fila) {
+        Fila<Pizza> ordenada = new Fila<>();
+
+        while (!fila.estaVazia()) {
+            Pizza menor = fila.desenfileirar();
+
+            Fila<Pizza> auxiliar = new Fila<>();
+
+            while (!fila.estaVazia()) {
+                Pizza atual = fila.desenfileirar();
+                if (atual.getPreco() < menor.getPreco()) {
+                    auxiliar.enfileirar(menor);
+                    menor = atual;
+                } else {
+                    auxiliar.enfileirar(atual);
+                }
+            }
+
+            ordenada.enfileirar(menor);
+
+            while (!auxiliar.estaVazia()) {
+                fila.enfileirar(auxiliar.desenfileirar());
+            }
+        }
+
+        while (!ordenada.estaVazia()) {
+            fila.enfileirar(ordenada.desenfileirar());
+        }
+    }
+    
+    public static Pizza lerPizzaPorId(int id){
+        Fila<Pizza> fila = lerPizza();
+
+        while (!fila.estaVazia()) {
+            Pizza atual = fila.desenfileirar();
+
+            if (atual.getId() == id) {
+                return atual;
+            }
+        }
+        
+        return new Pizza();
+    }
+        
+   
     @Override
     public String toString() {
         return "Pizza{" +
