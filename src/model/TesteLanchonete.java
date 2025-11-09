@@ -12,6 +12,11 @@ public class TesteLanchonete {
 
     public static void main(String[] args) {
 
-        Pizza.criarPizza("xyz", "tal", "recheiada", "tal", 1000);
+        Fila<Pizza> lista = Pizza.lerPizza();
+        
+        while(!lista.estaVazia()){
+            Pizza pizza = lista.desenfileirar();
+            System.out.println(pizza.getId() );
+        }    
     }
 }
