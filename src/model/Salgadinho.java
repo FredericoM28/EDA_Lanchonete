@@ -209,7 +209,7 @@ public class Salgadinho implements Serializable {
         }
     }
 
-    public static void ordenarPorPreco(Fila<Salgadinho> fila) {
+    public static Fila<Salgadinho> ordenarPorPreco(Fila<Salgadinho> fila) {
         Fila<Salgadinho> ordenada = new Fila<>();
 
         while (!fila.estaVazia()) {
@@ -237,6 +237,8 @@ public class Salgadinho implements Serializable {
         while (!ordenada.estaVazia()) {
             fila.enfileirar(ordenada.desenfileirar());
         }
+        
+        return fila;
     }
 
     public static Salgadinho lerPizzaPorId(int id) {
