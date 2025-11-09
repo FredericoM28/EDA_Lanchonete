@@ -23,13 +23,15 @@ public class Venda implements Serializable{
     private float valorRecebido;//Valor entregue pelo cliente
     private LocalDate dataDeVenda;
     private static final long serialVersionUID = 1L;
+    public int idVenda;
     
     //Criacao do metodo Construtor da classe venda
-    private Venda(Fila<itemVenda> itemVenda, float valorTotal, float valorRecebido, float troco) {
+    public Venda(Fila<itemVenda> itemVenda, float valorTotal, float valorRecebido, float troco) {
         this.itemVenda = itemVenda;
         this.valorTotal = valorTotal;
         this.dataDeVenda = LocalDate.now();
         this.valorRecebido = valorRecebido;
+        this.idVenda = idVenda++;
         
     }
 
@@ -103,6 +105,14 @@ public class Venda implements Serializable{
             System.out.println("Erro na leitura: " + e.getMessage());
             return new Fila();
         }
+    }
+
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 }
 

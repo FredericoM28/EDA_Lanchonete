@@ -20,12 +20,14 @@ public class Pizza implements Serializable {
     private String borda;   // pode ser "recheada" ou "normal"
     private String molho;
     private double preco;
+    private int idPizza;
 
     public Pizza(String recheio, String borda, String molho, double preco) {
         this.recheio = recheio;
         this.borda = borda;
         this.molho = molho;
         this.preco = preco;
+        this.idPizza = idPizza++;
     }
 
     // Getters e Setters

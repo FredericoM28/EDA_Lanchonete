@@ -19,13 +19,15 @@ public class Salgadinho implements Serializable {
     private String massa;
     private String recheio;
     private double preco;
+    private int idSalgadinho;
 
     // Construtor
-    public Salgadinho(String tipo, String massa, String recheio, double preco) {
+    public Salgadinho(String tipo, String massa, String recheio, double preco, int idSalgadinho) {
         this.tipo = tipo;
         this.massa = massa;
         this.recheio = recheio;
         this.preco = preco;
+        this.idSalgadinho = idSalgadinho++;
     }
 
     // Getters e Setters
