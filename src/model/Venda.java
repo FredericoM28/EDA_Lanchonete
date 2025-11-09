@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Serializable;
 
 public class Venda implements Serializable{
@@ -113,6 +115,36 @@ public class Venda implements Serializable{
 
     public void setIdVenda(int idVenda) {
         this.idVenda = idVenda;
+    }
+
+     // Registrar nova venda
+    public boolean registrarVenda(Fila<itemVenda> itens, float valorTotal, float valorRecebido, float troco) {
+        Venda venda = new Venda(itens, valorTotal, valorRecebido, troco); 
+        return Venda.gravarVenda(venda);
+    }
+
+    // Listar todas as vendas
+    public List<Venda> listarVendas() {
+        Fila<Venda> fila = Venda.lerVenda();
+        List<Venda> lista = new ArrayList<>();
+        Fila<Venda> temp = new Fila<>(); // fila temporária para não perder os dados
+
+        if (fila == null || fila.estaVazia()) {
+            return lista;
+        }
+
+        while (!fila.estaVazia()) {
+            Venda v = fila.desenfileirar();
+            lista.add(v);
+            temp.enfileirar(v); // mantém a fila original
+        }
+
+        // sobrescreve a fila original
+        while (!temp.estaVazia()) {
+            fila.enfileirar(temp.desenfileirar());
+        }
+
+        return lista;
     }
 }
 
