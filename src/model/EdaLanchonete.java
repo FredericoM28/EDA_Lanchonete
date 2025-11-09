@@ -26,12 +26,7 @@ public class EdaLanchonete {
 
         fila.mostrarFila(); // Fila: A B C
 
-        System.out.println("Primeiro da fila: " + fila.frente()); // A
-
-        System.out.println("Removido: " + fila.desenfileirar()); // A
-        fila.mostrarFila(); // Fila: B C
-
-        System.out.println("Tamanho: " + fila.tamanho()); // 2
+        
     }
 }
     

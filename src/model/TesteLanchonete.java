@@ -12,15 +12,16 @@ public class TesteLanchonete {
 
     public static void main(String[] args) {
         Fila<Pizza> fila = Pizza.lerPizza();
-        
+        Fila<Object> filaItens =  new Fila();
         while(!fila.estaVazia()){
             Pizza pizza = fila.desenfileirar();
-            System.out.println(pizza.getId());
+            
+           itemVenda.adicionarItem(filaItens, pizza);
         }
         
         Pizza.deletePizza(4);
         
-               while(!fila.estaVazia()){
+        while(!fila.estaVazia()){
             Pizza pizza = fila.desenfileirar();
             System.out.println(pizza.getId());
         }

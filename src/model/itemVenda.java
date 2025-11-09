@@ -35,4 +35,15 @@ public class itemVenda implements Serializable{
     public void setQtd(int Qtd) {
         this.Qtd = Qtd;
     }
+    
+    public static Fila<Object> adicionarItem(Fila<Object> fila, Object item){
+        fila.enfileirar(item);
+        return fila;
+    }
+    
+    public static Fila<Object> removerItem(Fila<Object> fila, Object item){
+        Fila<Object> aux = Fila.removerItem(fila, item);
+        return aux;
+    }
+    
 }
