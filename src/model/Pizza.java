@@ -185,9 +185,10 @@ public class Pizza implements Serializable {
         }
     }
 
-    public static boolean editarPorId(int id, Pizza novaPizza) {
+    public static boolean editarPorId(int id, String nomePizza, String recheio, String borda, String molho, double preco) {
         Fila<Pizza> auxiliar = new Fila();
         Fila<Pizza> fila = lerPizza();
+        Pizza novaPizza = new Pizza(id, nomePizza,  recheio,  borda, molho,  preco);
 
         while (!fila.estaVazia()) {
             Pizza atual = fila.desenfileirar();
