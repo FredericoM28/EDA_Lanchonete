@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,17 +11,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 /**
  *
  * @author Déleo Cambula
  */
 public class Pizza implements Serializable {
+
     private String recheio;
     private String borda;   // pode ser "recheada" ou "normal"
     private String molho;
     private double preco;
     private int idPizza;
     private String nomePizza;
+    private static final long serialVersionUID = 1L;
 
     public int getIdPizza() {
         return idPizza;
@@ -38,21 +42,23 @@ public class Pizza implements Serializable {
         this.nomePizza = nomePizza;
     }
 
-    public Pizza(String recheio, String borda, String molho, double preco) {
+    public Pizza(String nomePizza, String recheio, String borda, String molho, double preco) {
+        this.nomePizza = nomePizza;
         this.recheio = recheio;
         this.borda = borda;
         this.molho = molho;
         this.preco = preco;
         this.idPizza = idPizza++;
     }
-    
+
     public Pizza() {
     }
 
     //metodo para incrementar id da pizza
-    public int incrementarId(){
-        return lerPizza().tamanho() + 1;  
-    }    
+    public int incrementarId() {
+        return lerPizza().tamanho() + 1;
+    }
+
     // Getters e Setters
     public String getRecheio() {
         return recheio;
@@ -85,7 +91,7 @@ public class Pizza implements Serializable {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
+
     public int getId() {
         return idPizza;
     }
@@ -93,7 +99,7 @@ public class Pizza implements Serializable {
     public void setId() {
         this.idPizza = idPizza;
     }
-        
+
     public static Boolean gravarPizza(Pizza pizza) {
         Fila<Pizza> lista = lerPizza();
 
@@ -103,8 +109,7 @@ public class Pizza implements Serializable {
 
         lista.enfileirar(pizza);
 
-        try (FileOutputStream meuFicheiro = new FileOutputStream("Pizza.dat");
-            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro)) {
+        try (FileOutputStream meuFicheiro = new FileOutputStream("Pizza.dat"); ObjectOutputStream os = new ObjectOutputStream(meuFicheiro)) {
 
             os.writeObject(lista);
             return true;
@@ -114,7 +119,7 @@ public class Pizza implements Serializable {
             return false;
         }
     }
-    
+
     public static Fila<Pizza> lerPizza() {
         File ficheiro = new File("Pizza.dat");
 
@@ -122,8 +127,7 @@ public class Pizza implements Serializable {
             return new Fila(); // ficheiro não existe ou está vazio
         }
 
-        try (FileInputStream meuFicheiro = new FileInputStream(ficheiro);
-             ObjectInputStream in = new ObjectInputStream(meuFicheiro)) {
+        try (FileInputStream meuFicheiro = new FileInputStream(ficheiro); ObjectInputStream in = new ObjectInputStream(meuFicheiro)) {
 
             return (Fila<Pizza>) in.readObject();
 
@@ -132,11 +136,11 @@ public class Pizza implements Serializable {
             return new Fila();
         }
     }
-    
-    public static boolean deletePizza(int id){
+
+    public static boolean deletePizza(int id) {
         Fila<Pizza> fila = lerPizza();
         Fila<Pizza> auxiliar = new Fila<>();
-        
+
         while (!fila.estaVazia()) {
             Pizza atual = fila.desenfileirar();
 
@@ -144,15 +148,15 @@ public class Pizza implements Serializable {
                 auxiliar.enfileirar(atual);
             }
         }
-        
+
         while (!auxiliar.estaVazia()) {
             fila.enfileirar(auxiliar.desenfileirar());
         }
 
         try {
             FileOutputStream meuFicheiro = new FileOutputStream("Pizza.dat");
-            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
-            
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);
+
             os.writeObject(fila);
 
             os.close();
@@ -162,10 +166,10 @@ public class Pizza implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        }        
+        }
     }
-    
-    public static boolean editarPorId( int id, Pizza novaPizza) {
+
+    public static boolean editarPorId(int id, Pizza novaPizza) {
         Fila<Pizza> auxiliar = new Fila<>();
         Fila<Pizza> fila = lerPizza();
 
@@ -185,8 +189,8 @@ public class Pizza implements Serializable {
 
         try {
             FileOutputStream meuFicheiro = new FileOutputStream("Pizza.dat");
-            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
-            
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);
+
             os.writeObject(fila);
 
             os.close();
@@ -198,7 +202,7 @@ public class Pizza implements Serializable {
             return false;
         }
     }
-    
+
     public static void ordenarPorPreco(Fila<Pizza> fila) {
         Fila<Pizza> ordenada = new Fila<>();
 
@@ -228,8 +232,8 @@ public class Pizza implements Serializable {
             fila.enfileirar(ordenada.desenfileirar());
         }
     }
-    
-    public static Pizza lerPizzaPorId(int id){
+
+    public static Pizza lerPizzaPorId(int id) {
         Fila<Pizza> fila = lerPizza();
 
         while (!fila.estaVazia()) {
@@ -239,18 +243,17 @@ public class Pizza implements Serializable {
                 return atual;
             }
         }
-        
+
         return new Pizza();
     }
-        
-   
+
     @Override
     public String toString() {
-        return "Pizza{" +
-                "recheio='" + recheio + '\'' +
-                ", borda='" + borda + '\'' +
-                ", molho='" + molho + '\'' +
-                ", preco=" + preco +
-                '}';
+        return "Pizza{"
+                + "recheio='" + recheio + '\''
+                + ", borda='" + borda + '\''
+                + ", molho='" + molho + '\''
+                + ", preco=" + preco
+                + '}';
     }
 }

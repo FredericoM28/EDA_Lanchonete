@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,17 +12,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import static model.Pizza.lerPizza;
+
 /**
  *
  * @author Déleo Cambula
  */
 public class Salgadinho implements Serializable {
+
     private String tipo;     // frito ou assado
     private String massa;
     private String recheio;
     private double preco;
     private int idSalgadinho;
     private String nomeSalgado;
+    private static final long serialVersionUID = 1L;
 
     public int getIdSalgadinho() {
         return idSalgadinho;
@@ -40,20 +44,22 @@ public class Salgadinho implements Serializable {
     }
 
     // Construtor
-    public Salgadinho(String tipo, String massa, String recheio, double preco, int idSalgadinho) {
+    public Salgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco, int idSalgadinho) {
+        this.nomeSalgado = nomeDoSalgado;
         this.tipo = tipo;
         this.massa = massa;
         this.recheio = recheio;
         this.preco = preco;
         this.idSalgadinho = idSalgadinho++;
     }
-    
-    public Salgadinho(){}
+
+    public Salgadinho() {
+    }
 
     // metodo para incrementar id do salgadinho
-     public int incrementarId(){
-        return lerPizza().tamanho() + 1;  
-    }   
+    public int incrementarId() {
+        return lerPizza().tamanho() + 1;
+    }
 
     // Getters e Setters
     public String getTipo() {
@@ -87,7 +93,7 @@ public class Salgadinho implements Serializable {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
+
     public int getId() {
         return idSalgadinho;
     }
@@ -95,7 +101,7 @@ public class Salgadinho implements Serializable {
     public void setId(int idSalgadinho) {
         this.idSalgadinho = idSalgadinho;
     }
-    
+
     public static Boolean gravarSalgadinho(Salgadinho salgado) {
         Fila<Salgadinho> lista = lerSalgadinho();
 
@@ -105,8 +111,7 @@ public class Salgadinho implements Serializable {
 
         lista.enfileirar(salgado);
 
-        try (FileOutputStream meuFicheiro = new FileOutputStream("Salgadinho.dat");
-            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro)) {
+        try (FileOutputStream meuFicheiro = new FileOutputStream("Salgadinho.dat"); ObjectOutputStream os = new ObjectOutputStream(meuFicheiro)) {
 
             os.writeObject(lista);
             return true;
@@ -116,7 +121,7 @@ public class Salgadinho implements Serializable {
             return false;
         }
     }
-    
+
     public static Fila<Salgadinho> lerSalgadinho() {
         File ficheiro = new File("Salgadinho.dat");
 
@@ -124,8 +129,7 @@ public class Salgadinho implements Serializable {
             return new Fila(); // ficheiro não existe ou está vazio
         }
 
-        try (FileInputStream meuFicheiro = new FileInputStream(ficheiro);
-             ObjectInputStream in = new ObjectInputStream(meuFicheiro)) {
+        try (FileInputStream meuFicheiro = new FileInputStream(ficheiro); ObjectInputStream in = new ObjectInputStream(meuFicheiro)) {
 
             return (Fila<Salgadinho>) in.readObject();
 
@@ -134,11 +138,11 @@ public class Salgadinho implements Serializable {
             return new Fila();
         }
     }
-    
-    public static boolean deleteSalagadinho(int id){
+
+    public static boolean deleteSalagadinho(int id) {
         Fila<Salgadinho> fila = lerSalgadinho();
         Fila<Salgadinho> auxiliar = new Fila<>();
-        
+
         while (!fila.estaVazia()) {
             Salgadinho atual = fila.desenfileirar();
 
@@ -146,15 +150,15 @@ public class Salgadinho implements Serializable {
                 auxiliar.enfileirar(atual);
             }
         }
-        
+
         while (!auxiliar.estaVazia()) {
             fila.enfileirar(auxiliar.desenfileirar());
         }
 
         try {
             FileOutputStream meuFicheiro = new FileOutputStream("Salgadinho.dat");
-            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
-            
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);
+
             os.writeObject(fila);
 
             os.close();
@@ -164,9 +168,9 @@ public class Salgadinho implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        }        
+        }
     }
-    
+
     public static boolean editarPorId(int id, Salgadinho novoSalgadinho) {
         Fila<Salgadinho> auxiliar = new Fila<>();
         Fila<Salgadinho> fila = lerSalgadinho();
@@ -187,8 +191,8 @@ public class Salgadinho implements Serializable {
 
         try {
             FileOutputStream meuFicheiro = new FileOutputStream("Salgadinho.dat");
-            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
-            
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);
+
             os.writeObject(fila);
 
             os.close();
@@ -200,7 +204,7 @@ public class Salgadinho implements Serializable {
             return false;
         }
     }
-    
+
     public static void ordenarPorPreco(Fila<Salgadinho> fila) {
         Fila<Salgadinho> ordenada = new Fila<>();
 
@@ -230,8 +234,8 @@ public class Salgadinho implements Serializable {
             fila.enfileirar(ordenada.desenfileirar());
         }
     }
-    
-    public static Salgadinho lerPizzaPorId(int id){
+
+    public static Salgadinho lerPizzaPorId(int id) {
         Fila<Salgadinho> fila = lerSalgadinho();
 
         while (!fila.estaVazia()) {
@@ -241,18 +245,17 @@ public class Salgadinho implements Serializable {
                 return atual;
             }
         }
-        
+
         return new Salgadinho();
     }
-    
+
     @Override
     public String toString() {
-        return "Salgadinho{" +
-                "tipo='" + tipo + '\'' +
-                ", massa='" + massa + '\'' +
-                ", recheio='" + recheio + '\'' +
-                ", preco=" + preco +
-                '}';
+        return "Salgadinho{"
+                + "tipo='" + tipo + '\''
+                + ", massa='" + massa + '\''
+                + ", recheio='" + recheio + '\''
+                + ", preco=" + preco
+                + '}';
     }
 }
-

@@ -4,6 +4,7 @@
  */
 package view;
 
+import control.ControlTelaDePizza;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -18,9 +19,13 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
     /**
      * Creates new form TelaDeRegistarLanches
      */
+    ControlTelaDePizza controlTelaDePizza;
+
     public TelaDeRegistarPizza() {
         initComponents();
         setLocationRelativeTo(null);
+        this.controlTelaDePizza = new ControlTelaDePizza(this);
+        controlTelaDePizza.listarPizza();
     }
 
     public JButton getBtnDeletar() {
@@ -102,7 +107,6 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
     public void setTfRecheio(JTextField tfRecheio) {
         this.tfRecheio = tfRecheio;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,10 +167,25 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
         jLabel5.setText("Molho:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("limpar");
 
@@ -271,6 +290,19 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        controlTelaDePizza.registarPizza();
+        controlTelaDePizza.listarPizza();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        controlTelaDePizza.listarPizza();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        controlTelaDePizza.listarPizza();
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
      * @param args the command line arguments

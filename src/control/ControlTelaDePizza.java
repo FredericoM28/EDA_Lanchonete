@@ -6,9 +6,11 @@ package control;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Fila;
 import model.Pizza;
+import static model.Pizza.lerPizza;
 import view.TelaDeRegistarPizza;
 
 /**
@@ -30,36 +32,37 @@ public class ControlTelaDePizza {
         String borda = (String) telaPizza.getCbTipoDeBorda().getSelectedItem();
         String molho = telaPizza.getTfMolho().getText();
         Double preco = Double.valueOf(telaPizza.getTfPreco().getText());
-        Pizza novaPizza = new Pizza(recheio, borda, molho, preco);
-        Pizza.gravarPizza(novaPizza);
+        Pizza novaPizza = new Pizza(nome,recheio, borda, molho, preco);
+        if(Pizza.gravarPizza(novaPizza)){
+            JOptionPane.showMessageDialog(null, "Pizza Salva com sucesso");
+        }else{
+            System.out.println("Erro ao registar a Pizza");
+        }
     }
-    
+
     //Metodo para listar as vendas
-    public void listarPizza(){
+    public void listarPizza() {
         DefaultTableModel model = (DefaultTableModel) telaPizza.getTabelaPizza().getModel();
         model.setRowCount(0);
-        Fila<Pizza> listaDePizzas = Pizza.lerPizza();
 
-        if (listaDePizzas != null) {
-            for (Pizza pizza : listaDePizzas) {
-                if (pizza != null) {
-                    
+        Fila<Pizza> fila = lerPizza();
 
-                    if (pizza.getStatus() == true) {
-                        model.addRow(new Object[]{
-                            pizza.getRecheio(),
-                            pizza.getBorda(),
-                            pizza.getMolho(),
-                            pizza.getPreco(),
-                            
-                            
+        while (!fila.estaVazia()) {
+            Pizza atual = fila.desenfileirar();
 
-                        });
-                    }
-                }
+            if (atual != null) {
+                model.addRow(new Object[]{
+                    atual.getId(),
+                    atual.getNomePizza(),
+                    atual.getRecheio(),
+                    atual.getBorda(),
+                    atual.getPreco()
+                });
+
             }
+
         }
-    
+
     }
 
 }

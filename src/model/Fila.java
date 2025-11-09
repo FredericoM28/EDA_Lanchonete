@@ -4,16 +4,19 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Déleo Cambula
  * @param <T>
  */
-public class Fila<T> {
+public class Fila<T> implements Serializable {
 
     private Node<T> inicio; // Primeiro nó da fila
     private Node<T> fim;    // Último nó da fila
     private int tamanho;    // Quantos elementos há na fila
+    private static final long serialVersionUID = 1L;
 
     public Fila() {
         this.inicio = null;
