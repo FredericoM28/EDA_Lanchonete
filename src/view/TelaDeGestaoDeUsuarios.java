@@ -15,6 +15,7 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
      */
     public TelaDeGestaoDeUsuarios() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
