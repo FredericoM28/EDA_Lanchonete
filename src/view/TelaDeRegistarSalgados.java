@@ -4,6 +4,7 @@
  */
 package view;
 
+import control.ControlTelaDeSalgados;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -18,9 +19,12 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
     /**
      * Creates new form TelaDeRegistarLanches
      */
+    ControlTelaDeSalgados controlTelaDeSalgados;
     public TelaDeRegistarSalgados() {
         initComponents();
         setLocationRelativeTo(null);
+        this.controlTelaDeSalgados= new ControlTelaDeSalgados(this);
+        controlTelaDeSalgados.listarSalgados();
     }
 
     public JButton getBtnDeletar() {
@@ -170,7 +174,7 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo:");
 
-        cbTipoDeSalgado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoDeSalgado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Assado","Frito"}));
 
         jLabel5.setText("Massa:");
 

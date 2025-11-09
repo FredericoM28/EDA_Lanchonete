@@ -11,15 +11,23 @@ package model;
 public class TesteLanchonete {
 
     public static void main(String[] args) {
-
-        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
-       // Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
+//
+//        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
+//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
+//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
+//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
+//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
+//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
         Fila<Pizza> lista = Pizza.lerPizza();
         lista.mostrarFila();
-       Pizza novaPizza = new Pizza("Tuti", "Toamte", "Recheda", "Branco", 200);
-       Pizza.editarPorId(1, novaPizza);
-//
-        lista.mostrarFila();
+        
+        Pizza.deletePizza(5);
+        System.out.println("Apgada");
+           lista.mostrarFila();
+//       Pizza novaPizza = new Pizza("Tuti", "Toamte", "Recheda", "Branco", 200);
+//       Pizza.editarPorId(1, novaPizza);
+////
+//        lista.mostrarFila();
 
         // Pizza.criarPizza("xyz", "tal", "recheiada", "tal", 1000);
     }

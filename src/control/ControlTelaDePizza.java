@@ -47,8 +47,8 @@ public class ControlTelaDePizza {
         Fila<Pizza> fila = lerPizza();
 
         while (!fila.estaVazia()) {
-            Pizza.ordenarPorPreco(fila);
-            Pizza atual = fila.desenfileirar();
+            Fila<Pizza> filaOrdenada = Pizza.ordenarPorPreco(fila);
+            Pizza atual = filaOrdenada.desenfileirar();
 
             if (atual != null) {
                 model.addRow(new Object[]{
@@ -68,6 +68,7 @@ public class ControlTelaDePizza {
 
     //Metodo para limparCampos
     public void limparCampos() {
+        telaPizza.getTfIdPizza().setText("");
         telaPizza.getTfNome().setText("");
         telaPizza.getTfMolho().setText("");
         telaPizza.getTfPreco().setText("");
@@ -87,19 +88,25 @@ public class ControlTelaDePizza {
 
     //Metodo para editar a pizza
     public void editarPizza() {
-        int id= Integer.parseInt(telaPizza.getTfIdPizza().getText());
+        int id = Integer.parseInt(telaPizza.getTfIdPizza().getText());
         String nome = telaPizza.getTfNome().getText();
         String recheio = telaPizza.getTfRecheio().getText();
         String borda = (String) telaPizza.getCbTipoDeBorda().getSelectedItem();
         String molho = telaPizza.getTfMolho().getText();
         Double preco = Double.valueOf(telaPizza.getTfPreco().getText());
-        Pizza novaPizza= new Pizza(nome, recheio, borda, molho, preco);
-        if (Pizza.editarPorId(id,novaPizza)) {
+        Pizza novaPizza = new Pizza(nome, recheio, borda, molho, preco);
+        if (Pizza.editarPorId(id, novaPizza)) {
             JOptionPane.showMessageDialog(null, "Pizza Editada com sucesso");
         } else {
             System.out.println("Erro ao Editar a Pizza");
         }
 
+    }
+
+    //metodo Para deletar a pizza
+    public void deletarPizza() {
+        int id = Integer.parseInt(telaPizza.getTfIdPizza().getText());
+        Pizza.deletePizza(id);
     }
 
     //Metodo para selecionar a tabela pizza
