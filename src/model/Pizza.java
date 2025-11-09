@@ -62,7 +62,7 @@ public class Pizza implements Serializable {
     public Pizza() {
     }
 
-    public static Boolean criarVenda(String nomePizza, String recheio, String borda, String molho, double preco){
+    public static Boolean criarPizza(String nomePizza, String recheio, String borda, String molho, double preco){
         Pizza novaPizza = new Pizza(incrementarId(), nomePizza, recheio, borda, molho, preco);
         
         return gravarPizza(novaPizza);
@@ -217,7 +217,7 @@ public class Pizza implements Serializable {
         }
     }
 
-    public static void ordenarPorPreco(Fila<Pizza> fila) {
+    public static Fila<Pizza> ordenarPorPreco(Fila<Pizza> fila) {
         Fila<Pizza> ordenada = new Fila<>();
 
         while (!fila.estaVazia()) {
@@ -245,6 +245,8 @@ public class Pizza implements Serializable {
         while (!ordenada.estaVazia()) {
             fila.enfileirar(ordenada.desenfileirar());
         }
+        
+        return fila;
     }
 
     public static Pizza lerPizzaPorId(int id) {

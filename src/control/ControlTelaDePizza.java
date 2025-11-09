@@ -32,7 +32,7 @@ public class ControlTelaDePizza {
         String borda = (String) telaPizza.getCbTipoDeBorda().getSelectedItem();
         String molho = telaPizza.getTfMolho().getText();
         Double preco = Double.valueOf(telaPizza.getTfPreco().getText());
-        if (Pizza.criarVenda(nome, recheio, borda, molho, preco)) {
+        if (Pizza.criarPizza(nome, recheio, borda, molho, preco)) {
             JOptionPane.showMessageDialog(null, "Pizza Salva com sucesso");
         } else {
             System.out.println("Erro ao registar a Pizza");
