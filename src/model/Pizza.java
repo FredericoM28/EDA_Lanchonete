@@ -32,6 +32,7 @@ public class Pizza implements Serializable {
     public Pizza() {
     }
 
+    //metodo para incrementar id da pizza
     public int incrementarId(){
         return lerPizza().tamanho() + 1;  
     }    

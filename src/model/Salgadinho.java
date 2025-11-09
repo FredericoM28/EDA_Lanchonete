@@ -33,6 +33,11 @@ public class Salgadinho implements Serializable {
     
     public Salgadinho(){}
 
+    // metodo para incrementar id do salgadinho
+     public int incrementarId(){
+        return lerPizza().tamanho() + 1;  
+    }   
+
     // Getters e Setters
     public String getTipo() {
         return tipo;
