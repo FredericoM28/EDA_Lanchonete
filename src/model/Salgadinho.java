@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import static model.Pizza.lerPizza;
 /**
  *
  * @author Déleo Cambula
@@ -20,6 +21,23 @@ public class Salgadinho implements Serializable {
     private String recheio;
     private double preco;
     private int idSalgadinho;
+    private String nomeSalgado;
+
+    public int getIdSalgadinho() {
+        return idSalgadinho;
+    }
+
+    public void setIdSalgadinho(int idSalgadinho) {
+        this.idSalgadinho = idSalgadinho;
+    }
+
+    public String getNomeSalgado() {
+        return nomeSalgado;
+    }
+
+    public void setNomeSalgado(String nomeSalgado) {
+        this.nomeSalgado = nomeSalgado;
+    }
 
     // Construtor
     public Salgadinho(String tipo, String massa, String recheio, double preco, int idSalgadinho) {
@@ -29,6 +47,13 @@ public class Salgadinho implements Serializable {
         this.preco = preco;
         this.idSalgadinho = idSalgadinho++;
     }
+    
+    public Salgadinho(){}
+
+    // metodo para incrementar id do salgadinho
+     public int incrementarId(){
+        return lerPizza().tamanho() + 1;  
+    }   
 
     // Getters e Setters
     public String getTipo() {
@@ -61,6 +86,14 @@ public class Salgadinho implements Serializable {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+    
+    public int getId() {
+        return idSalgadinho;
+    }
+
+    public void setId(int idSalgadinho) {
+        this.idSalgadinho = idSalgadinho;
     }
     
     public static Boolean gravarSalgadinho(Salgadinho salgado) {
@@ -101,7 +134,117 @@ public class Salgadinho implements Serializable {
             return new Fila();
         }
     }
-    // Representação textual (para exibir facilmente)
+    
+    public static boolean deleteSalagadinho(int id){
+        Fila<Salgadinho> fila = lerSalgadinho();
+        Fila<Salgadinho> auxiliar = new Fila<>();
+        
+        while (!fila.estaVazia()) {
+            Salgadinho atual = fila.desenfileirar();
+
+            if (atual.getId() == id) {
+                auxiliar.enfileirar(atual);
+            }
+        }
+        
+        while (!auxiliar.estaVazia()) {
+            fila.enfileirar(auxiliar.desenfileirar());
+        }
+
+        try {
+            FileOutputStream meuFicheiro = new FileOutputStream("Salgadinho.dat");
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
+            
+            os.writeObject(fila);
+
+            os.close();
+            meuFicheiro.close();
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }        
+    }
+    
+    public static boolean editarPorId(int id, Salgadinho novoSalgadinho) {
+        Fila<Salgadinho> auxiliar = new Fila<>();
+        Fila<Salgadinho> fila = lerSalgadinho();
+
+        while (!fila.estaVazia()) {
+            Salgadinho atual = fila.desenfileirar();
+
+            if (atual.getId() == id) {
+                auxiliar.enfileirar(novoSalgadinho);
+            } else {
+                auxiliar.enfileirar(atual);
+            }
+        }
+
+        while (!auxiliar.estaVazia()) {
+            fila.enfileirar(auxiliar.desenfileirar());
+        }
+
+        try {
+            FileOutputStream meuFicheiro = new FileOutputStream("Salgadinho.dat");
+            ObjectOutputStream os = new ObjectOutputStream(meuFicheiro);  
+            
+            os.writeObject(fila);
+
+            os.close();
+            meuFicheiro.close();
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static void ordenarPorPreco(Fila<Salgadinho> fila) {
+        Fila<Salgadinho> ordenada = new Fila<>();
+
+        while (!fila.estaVazia()) {
+            Salgadinho menor = fila.desenfileirar();
+
+            Fila<Salgadinho> auxiliar = new Fila<>();
+
+            while (!fila.estaVazia()) {
+                Salgadinho atual = fila.desenfileirar();
+                if (atual.getPreco() < menor.getPreco()) {
+                    auxiliar.enfileirar(menor);
+                    menor = atual;
+                } else {
+                    auxiliar.enfileirar(atual);
+                }
+            }
+
+            ordenada.enfileirar(menor);
+
+            while (!auxiliar.estaVazia()) {
+                fila.enfileirar(auxiliar.desenfileirar());
+            }
+        }
+
+        while (!ordenada.estaVazia()) {
+            fila.enfileirar(ordenada.desenfileirar());
+        }
+    }
+    
+    public static Salgadinho lerPizzaPorId(int id){
+        Fila<Salgadinho> fila = lerSalgadinho();
+
+        while (!fila.estaVazia()) {
+            Salgadinho atual = fila.desenfileirar();
+
+            if (atual.getId() == id) {
+                return atual;
+            }
+        }
+        
+        return new Salgadinho();
+    }
+    
     @Override
     public String toString() {
         return "Salgadinho{" +

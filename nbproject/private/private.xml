@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/F:/Trabalho%20semestral%20EDA/EDA_Lanchonete/src/control/ControlTelaDeLogin.java</file>
             <file>file:/F:/Trabalho%20semestral%20EDA/EDA_Lanchonete/src/view/TelaDeVenda.java</file>
             <file>file:/F:/Trabalho%20semestral%20EDA/EDA_Lanchonete/src/controller/VendaController.java</file>
@@ -20,6 +21,12 @@
             <file>file:/F:/Trabalho%20semestral%20EDA/EDA_Lanchonete/src/view/TelaDeGestaoDeUsuarios.java</file>
             <file>file:/F:/Trabalho%20semestral%20EDA/EDA_Lanchonete/src/view/TelaDeRegistarSalgados.java</file>
             <file>file:/F:/Trabalho%20semestral%20EDA/EDA_Lanchonete/src/model/TesteLanchonete.java</file>
+=======
+            <file>file:/C:/Users/Pedro/Desktop/Frederico/UEM%20Nivel%202/Segundo%20Semestre%202ano/EDA/Quse_Tres_Lanches_Project/Lanchonete_System/src/view/TelaDeRegistarLanches.java</file>
+            <file>file:/C:/Users/Pedro/Desktop/Frederico/UEM%20Nivel%202/Segundo%20Semestre%202ano/EDA/Quse_Tres_Lanches_Project/Lanchonete_System/src/view/TelaDeMenuHome.java</file>
+            <file>file:/C:/Users/Pedro/Desktop/Frederico/UEM%20Nivel%202/Segundo%20Semestre%202ano/EDA/Quse_Tres_Lanches_Project/Lanchonete_System/src/view/FrameLogin.java</file>
+            <file>file:/C:/Users/Pedro/Desktop/Frederico/UEM%20Nivel%202/Segundo%20Semestre%202ano/EDA/Quse_Tres_Lanches_Project/Lanchonete_System/src/view/TelaDeGestaoDeUsuarios.java</file>
+>>>>>>> b60f2bf92b6c43048a69dccc4e631fa26baa67a1
         </group>
     </open-files>
 </project-private>
