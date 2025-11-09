@@ -20,6 +20,23 @@ public class Pizza implements Serializable {
     private String molho;
     private double preco;
     private int idPizza;
+    private String nomePizza;
+
+    public int getIdPizza() {
+        return idPizza;
+    }
+
+    public void setIdPizza(int idPizza) {
+        this.idPizza = idPizza;
+    }
+
+    public String getNomePizza() {
+        return nomePizza;
+    }
+
+    public void setNomePizza(String nomePizza) {
+        this.nomePizza = nomePizza;
+    }
 
     public Pizza(String recheio, String borda, String molho, double preco) {
         this.recheio = recheio;

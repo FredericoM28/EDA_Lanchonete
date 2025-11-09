@@ -21,6 +21,23 @@ public class Salgadinho implements Serializable {
     private String recheio;
     private double preco;
     private int idSalgadinho;
+    private String nomeSalgado;
+
+    public int getIdSalgadinho() {
+        return idSalgadinho;
+    }
+
+    public void setIdSalgadinho(int idSalgadinho) {
+        this.idSalgadinho = idSalgadinho;
+    }
+
+    public String getNomeSalgado() {
+        return nomeSalgado;
+    }
+
+    public void setNomeSalgado(String nomeSalgado) {
+        this.nomeSalgado = nomeSalgado;
+    }
 
     // Construtor
     public Salgadinho(String tipo, String massa, String recheio, double preco, int idSalgadinho) {
