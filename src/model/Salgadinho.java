@@ -258,6 +258,8 @@ public class Salgadinho implements Serializable {
     @Override
     public String toString() {
         return "Salgadinho{"
+                + "Id='" + idSalgadinho + '\''
+                + "nome='" + nomeSalgado + '\''
                 + "tipo='" + tipo + '\''
                 + ", massa='" + massa + '\''
                 + ", recheio='" + recheio + '\''

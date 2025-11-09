@@ -48,8 +48,16 @@ public class Pizza implements Serializable {
         this.borda = borda;
         this.molho = molho;
         this.preco = preco;
-        this.idPizza = idPizza;
+        this.idPizza = id;
     }
+     public Pizza(String nomePizza, String recheio, String borda, String molho, double preco) {
+        this.nomePizza = nomePizza;
+        this.recheio = recheio;
+        this.borda = borda;
+        this.molho = molho;
+        this.preco = preco;
+    }
+
 
     public Pizza() {
     }
@@ -256,7 +264,9 @@ public class Pizza implements Serializable {
     @Override
     public String toString() {
         return "Pizza{"
-                + "recheio='" + recheio + '\''
+                + "Id='" + idPizza + '\''
+                + "nome='" + nomePizza + '\''
+                + ",recheio='" + recheio + '\''
                 + ", borda='" + borda + '\''
                 + ", molho='" + molho + '\''
                 + ", preco=" + preco

@@ -11,7 +11,14 @@ package model;
 public class TesteLanchonete {
 
     public static void main(String[] args) {
-
+        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
+        //Pizza.criarVenda("tuti", "Toamte", "Lisa", "Branco", 200);
+        Fila<Pizza> lista= Pizza.lerPizza();
+        lista.mostrarFila();
+        Pizza novaPizza= new Pizza("Bolonesa", "Toamte", "Lisa", "Branco", 200);
+        Pizza.editarPorId(0, novaPizza);
+     
+        lista.mostrarFila();
 
     }
 }
