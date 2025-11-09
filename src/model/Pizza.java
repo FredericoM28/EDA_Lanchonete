@@ -42,20 +42,26 @@ public class Pizza implements Serializable {
         this.nomePizza = nomePizza;
     }
 
-    public Pizza(String nomePizza, String recheio, String borda, String molho, double preco) {
+    public Pizza(int id, String nomePizza, String recheio, String borda, String molho, double preco) {
         this.nomePizza = nomePizza;
         this.recheio = recheio;
         this.borda = borda;
         this.molho = molho;
         this.preco = preco;
-        this.idPizza = idPizza++;
+        this.idPizza = idPizza;
     }
 
     public Pizza() {
     }
 
+    public static Boolean criarVenda(String nomePizza, String recheio, String borda, String molho, double preco){
+        Pizza novaPizza = new Pizza(incrementarId(), nomePizza, recheio, borda, molho, preco);
+        
+        return gravarPizza(novaPizza);
+    }
+        
     //metodo para incrementar id da pizza
-    public int incrementarId() {
+    private static int incrementarId() {
         return lerPizza().tamanho() + 1;
     }
 

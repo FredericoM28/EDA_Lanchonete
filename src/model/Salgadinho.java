@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import static model.Pizza.gravarPizza;
 import static model.Pizza.lerPizza;
 
 /**
@@ -55,9 +56,14 @@ public class Salgadinho implements Serializable {
 
     public Salgadinho() {
     }
-
+    
+    public static Boolean criarSalgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco){
+        Salgadinho novoSalgadinho = new Salgadinho(nomeDoSalgado, tipo, massa, recheio, preco, incrementarId());
+        
+        return gravarSalgadinho(novoSalgadinho);
+    }
     // metodo para incrementar id do salgadinho
-    public int incrementarId() {
+    private static int incrementarId() {
         return lerPizza().tamanho() + 1;
     }
 
@@ -102,7 +108,7 @@ public class Salgadinho implements Serializable {
         this.idSalgadinho = idSalgadinho;
     }
 
-    public static Boolean gravarSalgadinho(Salgadinho salgado) {
+    private static Boolean gravarSalgadinho(Salgadinho salgado) {
         Fila<Salgadinho> lista = lerSalgadinho();
 
         if (lista == null) {
