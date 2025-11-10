@@ -5,6 +5,7 @@
 package view;
 
 import control.ControlTelaDeSalgados;
+import control.ControlTelaDeVenda;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -20,6 +21,7 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
      * Creates new form TelaDeRegistarLanches
      */
     ControlTelaDeSalgados controlTelaDeSalgados;
+    ControlTelaDeVenda controlTelaVenda;
     public TelaDeRegistarSalgados() {
         initComponents();
         setLocationRelativeTo(null);
@@ -339,6 +341,8 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
         controlTelaDeSalgados.registarSalgados();
         controlTelaDeSalgados.listarSalgados();
         controlTelaDeSalgados.limparCampos();
+        controlTelaVenda.listarPizzas();
+        controlTelaVenda.listarSalgados();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -346,6 +350,8 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
         controlTelaDeSalgados.editarPizza();
         controlTelaDeSalgados.listarSalgados();
         controlTelaDeSalgados.limparCampos();
+        controlTelaVenda.listarPizzas();
+        controlTelaVenda.listarSalgados();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -353,6 +359,8 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
         controlTelaDeSalgados.deletarSalgado();
         controlTelaDeSalgados.listarSalgados();
         controlTelaDeSalgados.limparCampos();
+        controlTelaVenda.listarPizzas();
+        controlTelaVenda.listarSalgados();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void tabelaSalgadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaSalgadosMouseClicked

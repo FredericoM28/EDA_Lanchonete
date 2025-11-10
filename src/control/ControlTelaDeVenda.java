@@ -97,11 +97,11 @@ public class ControlTelaDeVenda {
         DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
         model.setRowCount(0);
 
-        Fila<ItemVenda> fila = itens;
+       // Fila<ItemVenda> fila = itens;
 
-        while (!fila.estaVazia()) {
+        while (!itens.estaVazia()) {
 
-            ItemVenda atual = fila.desenfileirar();
+            ItemVenda atual = itens.desenfileirar();
 
             if (atual != null) {
                 model.addRow(new Object[]{
@@ -112,18 +112,20 @@ public class ControlTelaDeVenda {
 
         }
     }
+    
 
     public void adicionarItemNoCarrinho() {
 
         int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
-        //int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText());
+        
+        int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
         Pizza pizza = Pizza.lerPizzaPorId(id);
         Salgadinho salgado = Salgadinho.lerPizzaPorId(id);
         while (pizza != null || salgado != null) {
             if (pizza.getId() == id) {
-                itens = ItemVenda.adicionarItem(itens, pizza, id);
+                itens = ItemVenda.adicionarItem(itens, pizza, quantidade);
             } else if (salgado.getId() == id) {
-                itens = ItemVenda.adicionarItem(itens, salgado, id);
+                itens = ItemVenda.adicionarItem(itens, salgado, quantidade);
             }
 
 //     
