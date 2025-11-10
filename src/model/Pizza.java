@@ -16,7 +16,7 @@ import java.io.Serializable;
  *
  * @author Déleo Cambula
  */
-public class Pizza extends Produto{
+public class Pizza extends Produto implements Serializable{
     private String recheio;
     private String borda;   // pode ser "recheada" ou "normal"
     private String molho;
