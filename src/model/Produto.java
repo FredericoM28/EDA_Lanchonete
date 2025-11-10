@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import static model.Pizza.lerPizza;
 
 /**
  *
@@ -20,6 +21,12 @@ public abstract class Produto implements Serializable{
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+    }
+    
+    protected static int incrementarId() {
+        Fila<Pizza> fila = lerPizza();
+        Fila<Salgadinho> fila2 = Salgadinho.lerSalgadinho();
+        return fila.tamanho() + fila2.tamanho() + 1;
     }
 
     public Produto(){}
