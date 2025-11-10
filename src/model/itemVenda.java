@@ -40,39 +40,9 @@ public class itemVenda implements Serializable {
     
 
     // Adicionar item na fila (se já existir, aumenta a quantidade)
-    public static Fila<Object> adicionarItem(Fila<Object> fila, Object item) {
-        Fila<Object> aux = new Fila<>();
-        boolean encontrado = false;
-
-        while (!fila.estaVazia()) {
-            Object obj = fila.desenfileirar();
-
-            if (obj instanceof itemVenda) {
-                itemVenda iv = (itemVenda) obj;
-
-                // Se o mesmo produto já estiver na fila
-                if (iv.getItem().equals(item)) {
-                    iv.setQtd(iv.getQtd() + 1); // aumenta quantidade
-                    encontrado = true;
-                }
-                aux.enfileirar(iv);
-            } else {
-                aux.enfileirar(obj);
-            }
-        }
-
-        // Se não existir ainda, adiciona o novo item
-        if (!encontrado) {
-            aux.enfileirar(new itemVenda(item, 1));
-        }
-
-        // Reconstrói a fila original
-        while (!aux.estaVazia()) {
-            fila.enfileirar(aux.desenfileirar());
-        }
-
-        return fila;
-    }
+    public static Fila<Object> adicionarItem(Fila<Object> fila, Object item, int Qtd) { 
+        fila.enfileirar(item);
+         return fila; }
 
     // Remover item da fila
     public static Fila<Object> removerItem(Fila<Object> fila, Object item) {
