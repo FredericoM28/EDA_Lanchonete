@@ -50,6 +50,7 @@ public class itemVenda implements Serializable {
             if (obj instanceof itemVenda) {
                 itemVenda iv = (itemVenda) obj;
 
+                // Se o mesmo produto já estiver na fila
                 if (iv.getItem().equals(item)) {
                     iv.setQtd(iv.getQtd() + 1); // aumenta quantidade
                     encontrado = true;
@@ -60,11 +61,12 @@ public class itemVenda implements Serializable {
             }
         }
 
+        // Se não existir ainda, adiciona o novo item
         if (!encontrado) {
-            aux.enfileirar(new itemVenda(item, 1)); // adiciona novo item
+            aux.enfileirar(new itemVenda(item, 1));
         }
 
-        // reconstrói fila original
+        // Reconstrói a fila original
         while (!aux.estaVazia()) {
             fila.enfileirar(aux.desenfileirar());
         }
