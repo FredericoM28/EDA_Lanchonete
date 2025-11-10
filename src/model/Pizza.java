@@ -20,6 +20,7 @@ public class Pizza extends Produto implements Serializable{
     private String recheio;
     private String borda;   // pode ser "recheada" ou "normal"
     private String molho;
+    private static final long serialVersionUID = 1L;
 
     public Pizza(int id, String nomePizza, String recheio, String borda, String molho, double preco) {
         super(id, nomePizza, preco);

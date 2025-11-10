@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 import model.Fila;
+import model.ItemVenda;
 import model.Pizza;
 import static model.Pizza.lerPizza;
 import model.Salgadinho;
 import model.Venda;
-import model.itemVenda;
 import view.TelaDeVenda;
 
 /**
@@ -26,7 +26,7 @@ public class ControlTelaDeVenda {
 
     //metodo para listar Venda Salgados
     private final TelaDeVenda telaVenda;
-    Fila<Object> itens = new Fila<>();
+    Fila<ItemVenda> itens = new Fila<>();
 
     public ControlTelaDeVenda(TelaDeVenda view) {
         this.telaVenda = view;
@@ -97,11 +97,11 @@ public class ControlTelaDeVenda {
         DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
         model.setRowCount(0);
 
-        Fila<itemVenda> fila = (Fila<itemVenda>) itemVenda.listarItens(itens);
+        Fila<ItemVenda> fila = itens;
 
         while (!fila.estaVazia()) {
 
-            itemVenda atual = fila.desenfileirar();
+            ItemVenda atual = fila.desenfileirar();
 
             if (atual != null) {
                 model.addRow(new Object[]{
@@ -121,9 +121,9 @@ public class ControlTelaDeVenda {
         Salgadinho salgado = Salgadinho.lerPizzaPorId(id);
         while (pizza != null || salgado != null) {
             if (pizza.getId() == id) {
-                itens = itemVenda.adicionarItem(itens, pizza);
+                itens = ItemVenda.adicionarItem(itens, pizza, id);
             } else if (salgado.getId() == id) {
-                itens = itemVenda.adicionarItem(itens, salgado);
+                itens = ItemVenda.adicionarItem(itens, salgado, id);
             }
 
 //     
