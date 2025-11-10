@@ -21,7 +21,7 @@ import java.io.Serializable;
 import static model.Pizza.lerPizza;
 
 public class Venda implements Serializable{
-    private  Fila<itemVenda> itemVenda = new Fila();
+    private  Fila<ItemVenda> itemVenda = new Fila();
     private float valorTotal; //Valor a ser pago
     private float valorRecebido;//Valor entregue pelo cliente
     private LocalDate dataDeVenda;
@@ -29,7 +29,7 @@ public class Venda implements Serializable{
     public int idVenda;
     
     //Criacao do metodo Construtor da classe venda
-    public Venda(Fila<itemVenda> itemVenda, float valorTotal, LocalDate dataDeVenda1, float valorRecebido, int id) {
+    public Venda(Fila<ItemVenda> itemVenda, float valorTotal, LocalDate dataDeVenda1, float valorRecebido, int id) {
         this.itemVenda = itemVenda;
         this.valorTotal = valorTotal;
         this.dataDeVenda = LocalDate.now();
@@ -38,11 +38,11 @@ public class Venda implements Serializable{
         
     }
 
-    public Fila<itemVenda> getItemVenda() {
+    public Fila<ItemVenda> getItemVenda() {
         return itemVenda;
     }
 
-    public void setItemVenda(Fila<itemVenda> itemVenda) {
+    public void setItemVenda(Fila<ItemVenda> itemVenda) {
         this.itemVenda = itemVenda;
     }
 
@@ -71,7 +71,7 @@ public class Venda implements Serializable{
     }
     
     /// Metodo que cria uma venda
-    public boolean criarVenda(Fila<itemVenda> itemVenda, LocalDate dataDeVenda,float valorRecebido){
+    public boolean criarVenda(Fila<ItemVenda> itemVenda, LocalDate dataDeVenda,float valorRecebido){
        float valorTotal = itemVenda.precoTotal(itemVenda);
        Venda novaVenda = new Venda(itemVenda, valorTotal, dataDeVenda, valorRecebido, incrementarId());
        
@@ -131,7 +131,7 @@ public class Venda implements Serializable{
     }
 
      // Registrar nova venda
-    public boolean registrarVenda(Fila<itemVenda> itens, float valorTotal, float valorRecebido, float troco) {
+    public boolean registrarVenda(Fila<ItemVenda> itens, float valorTotal, float valorRecebido, float troco) {
         Venda venda = new Venda(itens, valorTotal, dataDeVenda, valorRecebido, idVenda); 
         return Venda.gravarVenda(venda);
     }
