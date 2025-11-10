@@ -177,6 +177,11 @@ public class TelaDeVenda extends javax.swing.JFrame {
         jLabel2.setText("Lista de Pizzas Disponiveis");
 
         brnAdicionar.setText("Add");
+        brnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brnAdicionarActionPerformed(evt);
+            }
+        });
 
         btnRemover.setText("Remover");
 
@@ -381,6 +386,11 @@ public class TelaDeVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
         controlTelaDeVenda.selecionartabelaSalgados();
     }//GEN-LAST:event_tabelaSalgadosVendaMouseClicked
+
+    private void brnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAdicionarActionPerformed
+        controlTelaDeVenda.adicionarItemNoCarrinho();
+        controlTelaDeVenda.listarItens();
+    }//GEN-LAST:event_brnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments

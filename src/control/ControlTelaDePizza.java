@@ -53,7 +53,7 @@ public class ControlTelaDePizza {
             if (atual != null) {
                 model.addRow(new Object[]{
                     atual.getId(),
-                    atual.getNomePizza(),
+                    atual.getNome(),
                     atual.getRecheio(),
                     atual.getBorda(),
                     atual.getMolho(),

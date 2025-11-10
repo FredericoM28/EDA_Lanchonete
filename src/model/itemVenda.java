@@ -11,21 +11,21 @@ import java.util.List;
  *
  * @author Déleo Cambula
  */
-public class itemVenda implements Serializable {
-    private Object item; // Pode ser Salgado ou Pizza
+public class ItemVenda implements Serializable {
+    private Produto item; // Pode ser Salgado ou Pizza
     private int Qtd;
     private static final long serialVersionUID = 1L;
 
-    public itemVenda(Object item, int Qtd) {
+    public ItemVenda(Produto item, int Qtd) {
         this.item = item;
         this.Qtd = Qtd;
     }
 
-    public Object getItem() {
+    public Produto getItem() {
         return item;
     }
 
-    public void setItem(Object item) {
+    public void setItem(Produto item) {
         this.item = item;
     }
 
@@ -35,31 +35,23 @@ public class itemVenda implements Serializable {
 
     public void setQtd(int Qtd) {
         this.Qtd = Qtd;
+    }  
+
+    public static Fila<ItemVenda> adicionarItem(Fila<ItemVenda> fila, Produto produto, int qtd) {
+        ItemVenda item = new ItemVenda(produto, qtd);
+        fila.enfileirar(item);
+        return fila; 
     }
 
-    
-
-    // Adicionar item na fila (se já existir, aumenta a quantidade)
-    public static Fila<Object> adicionarItem(Fila<Object> fila, Object item, int Qtd) { 
-        fila.enfileirar(item);
-         return fila; }
-
-    // Remover item da fila
-    public static Fila<Object> removerItem(Fila<Object> fila, Object item) {
-        Fila<Object> aux = new Fila<>();
+    public static Fila<ItemVenda> removerItem(Fila<ItemVenda> fila, int id) {
+        Fila<ItemVenda> aux = new Fila<>();
 
         while (!fila.estaVazia()) {
-            Object obj = fila.desenfileirar();
-
-            if (obj instanceof itemVenda) {
-                itemVenda iv = (itemVenda) obj;
-
-                if (!iv.getItem().equals(item)) {
-                    aux.enfileirar(iv);
-                }
-            } else {
-                aux.enfileirar(obj);
-            }
+            ItemVenda produto = fila.desenfileirar();
+            
+            if(produto.getItem().getId() != id){
+                aux.enfileirar(produto);
+            }  
         }
 
         // Reconstruir fila original
@@ -70,88 +62,34 @@ public class itemVenda implements Serializable {
         return fila;
     }
 
-    // Listar todos os itens
-    public static List<Object> listarItens(Fila<Object> fila) {
-        List<Object> lista = new ArrayList<>();
-        Fila<Object> aux = new Fila<>();
-
-        while (!fila.estaVazia()) {
-            Object obj = fila.desenfileirar();
-            lista.add(obj);
-            aux.enfileirar(obj);
+    public static Produto buscarPorNome(Fila<ItemVenda> fila, String nome) {
+        while (fila.estaVazia()) {
+            Produto produto = fila.desenfileirar().getItem();
+            
+            if(produto.getNome().equalsIgnoreCase(nome)){
+                return produto;
+            }
         }
-
-        while (!aux.estaVazia()) {
-            fila.enfileirar(aux.desenfileirar());
-        }
-
-        return lista;
+        return new Produto();
     }
 
-    // Buscar itens pelo nome
-    public static List<Object> buscarPorNome(Fila<Object> fila, String nome) {
-        List<Object> encontrados = new ArrayList<>();
-        Fila<Object> aux = new Fila<>();
-
-        while (!fila.estaVazia()) {
-            Object obj = fila.desenfileirar();
-            String nomeItem = "";
-
-            try {
-                nomeItem = (String) obj.getClass().getMethod("getNome").invoke(obj);
-            } catch (Exception e) {
-                // ignora
-            }
-
-            if (nomeItem != null && nomeItem.toLowerCase().contains(nome.toLowerCase())) {
-                encontrados.add(obj);
-            }
-
-            aux.enfileirar(obj);
-        }
-
-        while (!aux.estaVazia()) {
-            fila.enfileirar(aux.desenfileirar());
-        }
-
-        return encontrados;
-    }
-
-   
-
-    // Calcular o total a pagar (soma dos preços * quantidade)
-    public static float totalAPagar(Fila<Object> fila) {
+    public static float precoTotal(Fila<ItemVenda> fila) {
         float total = 0;
-        Fila<Object> aux = new Fila<>();
 
         while (!fila.estaVazia()) {
-            Object obj = fila.desenfileirar();
-
-            if (obj instanceof itemVenda) {
-                itemVenda iv = (itemVenda) obj;
-                try {
-                    float preco = (float) iv.getItem().getClass().getMethod("getPreco").invoke(iv.getItem());
-                    total += preco * iv.getQtd();
-                } catch (Exception e) {
-                    // ignora se o item não tiver getPreco()
-                }
-                aux.enfileirar(iv);
-            } else {
-                aux.enfileirar(obj);
-            }
+            ItemVenda obj = fila.desenfileirar();        
+            total += obj.getItem().getPreco()*obj.getQtd();                
         }
-
-        // Reconstruir fila original
-        while (!aux.estaVazia()) {
-            fila.enfileirar(aux.desenfileirar());
-        }
-
         return total;
     }
 
     // Calcular o troco
-    public static float troco(float valorRecebido, Fila<Object> fila) {
-        float total = totalAPagar(fila);
+    public static float troco(float valorRecebido, Fila<ItemVenda> fila) {     
+        float total = precoTotal(fila);
+        if(valorRecebido<total){
+           
+        }
+            
         return valorRecebido - total;
     }
 }

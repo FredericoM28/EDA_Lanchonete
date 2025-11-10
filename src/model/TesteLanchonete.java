@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author HP
@@ -11,16 +13,12 @@ package model;
 public class TesteLanchonete {
 
     public static void main(String[] args) {
-
-//        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-        Fila<Pizza> lista = Pizza.lerPizza();
+        Pizza.criarPizza("Margarida", "Carne", "Lisa", "Tomate", 200);
+       
+        Fila<Pizza> lista= Pizza.lerPizza();
         lista.mostrarFila();
         
+<<<<<<< HEAD
         Pizza.deletePizza(5);
         System.out.println("Apgada");
            lista.mostrarFila();
@@ -66,5 +64,7 @@ public class TesteLanchonete {
         }
 
 
+=======
+>>>>>>> f197c9768b6fe2e2c78b23602cebe3d182d83e84
     }
 }

@@ -16,51 +16,20 @@ import java.io.Serializable;
  *
  * @author Déleo Cambula
  */
-public class Pizza implements Serializable {
-
+public class Pizza extends Produto implements Serializable{
     private String recheio;
     private String borda;   // pode ser "recheada" ou "normal"
     private String molho;
-    private double preco;
-    private int idPizza;
-    private String nomePizza;
     private static final long serialVersionUID = 1L;
 
-    public int getIdPizza() {
-        return idPizza;
-    }
-
-    public void setIdPizza(int idPizza) {
-        this.idPizza = idPizza;
-    }
-
-    public String getNomePizza() {
-        return nomePizza;
-    }
-
-    public void setNomePizza(String nomePizza) {
-        this.nomePizza = nomePizza;
-    }
-
     public Pizza(int id, String nomePizza, String recheio, String borda, String molho, double preco) {
-        this.nomePizza = nomePizza;
+        super(id, nomePizza, preco);
         this.recheio = recheio;
         this.borda = borda;
         this.molho = molho;
-        this.preco = preco;
-        this.idPizza = id;
     }
-     public Pizza(String nomePizza, String recheio, String borda, String molho, double preco) {
-        this.nomePizza = nomePizza;
-        this.recheio = recheio;
-        this.borda = borda;
-        this.molho = molho;
-        this.preco = preco;
-    }
-
-
-    public Pizza() {
-    }
+    
+    public Pizza(){}
 
     public static Boolean criarPizza(String nomePizza, String recheio, String borda, String molho, double preco){
         Pizza novaPizza = new Pizza(incrementarId(), nomePizza, recheio, borda, molho, preco);
@@ -97,22 +66,6 @@ public class Pizza implements Serializable {
 
     public void setMolho(String molho) {
         this.molho = molho;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public int getId() {
-        return idPizza;
-    }
-
-    public void setId() {
-        this.idPizza = idPizza;
     }
 
     public static Boolean gravarPizza(Pizza pizza) {
@@ -269,12 +222,9 @@ public class Pizza implements Serializable {
     @Override
     public String toString() {
         return "Pizza{"
-                + "Id='" + idPizza + '\''
-                + "nome='" + nomePizza + '\''
                 + ",recheio='" + recheio + '\''
                 + ", borda='" + borda + '\''
                 + ", molho='" + molho + '\''
-                + ", preco=" + preco
                 + '}';
     }
 }
