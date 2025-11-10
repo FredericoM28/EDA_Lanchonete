@@ -38,7 +38,8 @@ public class TesteLanchonete {
         lista.mostrarFila();
        Pizza novaPizza = new Pizza("Tuti", "Toamte", "Recheda", "Branco", 200);
        
-
+//itemVenda itemVenda = new itemVenda("pizza", 2);
+//adicionarItem(filaItens, "pizza", 2);
         Fila<Pizza> fila = Pizza.lerPizza();
         Fila<Object> filaItens =  new Fila();
         while(!fila.estaVazia()){
@@ -48,6 +49,8 @@ public class TesteLanchonete {
         }
         
         Pizza.deletePizza(4);
+
+        
         
         while(!fila.estaVazia()){
             Pizza pizza = fila.desenfileirar();
