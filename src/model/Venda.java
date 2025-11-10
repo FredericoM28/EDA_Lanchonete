@@ -28,7 +28,7 @@ public class Venda implements Serializable{
     public int idVenda;
     
     //Criacao do metodo Construtor da classe venda
-    public Venda(Fila<itemVenda> itemVenda, float valorTotal, LocalDate dataDeVenda1, float valorRecebido, int idVenda1) {
+    public Venda(Fila<itemVenda> itemVenda, float valorTotal, LocalDate dataDeVenda, float valorRecebido, int idVenda) {
         this.itemVenda = itemVenda;
         this.valorTotal = valorTotal;
         this.dataDeVenda = LocalDate.now();

@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author HP
@@ -12,56 +14,21 @@ public class TesteLanchonete {
 
     public static void main(String[] args) {
 
-//        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-//        Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-        Fila<Pizza> lista = Pizza.lerPizza();
-        lista.mostrarFila();
-        
-        Pizza.deletePizza(5);
-        System.out.println("Apgada");
-           lista.mostrarFila();
-//       Pizza novaPizza = new Pizza("Tuti", "Toamte", "Recheda", "Branco", 200);
-//       Pizza.editarPorId(1, novaPizza);
-////
-//        lista.mostrarFila();
-
-        // Pizza.criarPizza("xyz", "tal", "recheiada", "tal", 1000);
-
-
-        //Pizza.criarVenda("Pata", "Toamte", "Lisa", "Branco", 200);
-       // Pizza.criarPizza("Bolonesa", "Carne", "Lisa", "Branco", 200);
-       
-        lista.mostrarFila();
-       Pizza novaPizza = new Pizza("Tuti", "Toamte", "Recheda", "Branco", 200);
-       
-
-        Fila<Pizza> fila = Pizza.lerPizza();
-        Fila<Object> filaItens =  new Fila();
-        while(!fila.estaVazia()){
-            Pizza pizza = fila.desenfileirar();
+            Pizza novaPizza= Pizza.lerPizzaPorId(3);
+//            Fila<Pizza> fila= Pizza.lerPizza();
+//            Fila<Object> filaO= new Fila<>();
+//            fila.mostrarFila();
             
-           itemVenda.adicionarItem(filaItens, pizza);
-        }
-        
-        Pizza.deletePizza(4);
-        
-        while(!fila.estaVazia()){
-            Pizza pizza = fila.desenfileirar();
-            System.out.println(pizza.getId());
-        }
-
-        
-        Pizza.deletePizza(4);
-        
-               while(!fila.estaVazia()){
-            Pizza pizza = fila.desenfileirar();
-            System.out.println(pizza.getId());
-        }
-
+            itemVenda item = new itemVenda(novaPizza, 10);
+            Fila<itemVenda>filaI = new Fila<>();
+            filaI.enfileirar(item);
+               Venda venda= new Venda(filaI, 1000, LocalDate.now(), 1050, 1);
+//               if(Venda.gravarVenda(venda)){
+//                   System.out.println("Venda com sucesso");
+//               }else{
+//                   System.out.println("Falhou");
+//               }
+               System.out.println(Venda.lerVenda());
 
     }
 }
