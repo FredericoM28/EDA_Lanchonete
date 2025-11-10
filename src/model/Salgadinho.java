@@ -37,12 +37,6 @@ public class Salgadinho extends Produto implements Serializable{
         
         return gravarSalgadinho(novoSalgadinho);
     }
-    // metodo para incrementar id do salgadinho
-    private static int incrementarId() {
-        Fila<Salgadinho> fila = lerSalgadinho();
-        return fila.tamanho() + 1;
-    }
-
     // Getters e Setters
     public String getTipo() {
         return tipo;
