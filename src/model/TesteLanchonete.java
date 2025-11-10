@@ -44,7 +44,7 @@ public class TesteLanchonete {
         while(!fila.estaVazia()){
             Pizza pizza = fila.desenfileirar();
             
-           itemVenda.adicionarItem(filaItens, pizza);
+           itemVenda.adicionarItem(filaItens, pizza, 0);
         }
         
         Pizza.deletePizza(4);
