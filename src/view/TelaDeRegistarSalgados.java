@@ -25,6 +25,7 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.controlTelaDeSalgados= new ControlTelaDeSalgados(this);
         controlTelaDeSalgados.listarSalgados();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public JButton getBtnDeletar() {

@@ -100,4 +100,21 @@ public class Fila<T> implements Serializable {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
     }
+    
+    public static Fila<Object> removerItem(Fila<Object> fila, Object item) {
+        Fila<Object> temp = new Fila<>();
+
+        while (!fila.estaVazia()) {
+            Object atual = fila.desenfileirar();
+            if (!atual.equals(item)) { // só mantém os diferentes
+                temp.enfileirar(atual);
+            }
+        }
+
+        while (!temp.estaVazia()) {
+            fila.enfileirar(temp.desenfileirar());
+        }
+
+        return fila;
+    }
 }

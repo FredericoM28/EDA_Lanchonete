@@ -26,6 +26,7 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.controlTelaDePizza = new ControlTelaDePizza(this);
         controlTelaDePizza.listarPizza();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public JButton getBtnDeletar() {

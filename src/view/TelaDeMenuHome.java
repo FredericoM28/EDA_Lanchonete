@@ -16,7 +16,8 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
     TelaDeRegistarPizza abrirTelaPizza= new TelaDeRegistarPizza();
     TelaDeRegistarSalgados abrirTelaSalgados= new TelaDeRegistarSalgados();
     TelaDeGestaoDeUsuarios abrirTelaUsuario= new TelaDeGestaoDeUsuarios();
-    
+    TelaDeVenda abrirTelaVenda= new TelaDeVenda();
+    ListarVendas abrirListarVenda= new ListarVendas();
     
     
     public TelaDeMenuHome() {
@@ -37,12 +38,14 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnGerirUsuario = new javax.swing.JButton();
         btnGerirPizza = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEfectuarVenda = new javax.swing.JButton();
         btnGerirSalgados = new javax.swing.JButton();
+        btnListarVenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Tela de Menu ");
 
         btnGerirUsuario.setText("1-Gerir Usuarios");
@@ -59,10 +62,10 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("3-Efectuar Venda");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEfectuarVenda.setText("4-Efectuar Venda");
+        btnEfectuarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEfectuarVendaActionPerformed(evt);
             }
         });
 
@@ -73,37 +76,48 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
             }
         });
 
+        btnListarVenda.setText("Listar Venda");
+        btnListarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarVendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(192, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnGerirUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGerirPizza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGerirSalgados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(184, 184, 184))
+                .addContainerGap(177, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEfectuarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGerirSalgados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGerirPizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGerirUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnListarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                        .addGap(150, 150, 150))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(188, 188, 188))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(36, 36, 36)
                 .addComponent(btnGerirUsuario)
                 .addGap(18, 18, 18)
                 .addComponent(btnGerirPizza)
                 .addGap(18, 18, 18)
                 .addComponent(btnGerirSalgados)
                 .addGap(21, 21, 21)
-                .addComponent(jButton3)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addComponent(btnEfectuarVenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnListarVenda)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -120,14 +134,19 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
         abrirTelaUsuario.setVisible(true);
     }//GEN-LAST:event_btnGerirUsuarioActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnEfectuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectuarVendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        abrirTelaVenda.setVisible(true);
+    }//GEN-LAST:event_btnEfectuarVendaActionPerformed
 
     private void btnGerirSalgadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerirSalgadosActionPerformed
         // TODO add your handling code here:
         abrirTelaSalgados.setVisible(true);
     }//GEN-LAST:event_btnGerirSalgadosActionPerformed
+
+    private void btnListarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarVendaActionPerformed
+        abrirListarVenda.setVisible(true);
+    }//GEN-LAST:event_btnListarVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,10 +184,11 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEfectuarVenda;
     private javax.swing.JButton btnGerirPizza;
     private javax.swing.JButton btnGerirSalgados;
     private javax.swing.JButton btnGerirUsuario;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnListarVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

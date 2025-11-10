@@ -28,12 +28,12 @@ public class Venda implements Serializable{
     public int idVenda;
     
     //Criacao do metodo Construtor da classe venda
-    public Venda(Fila<itemVenda> itemVenda, float valorTotal, float valorRecebido, float troco) {
+    public Venda(Fila<itemVenda> itemVenda, float valorTotal, LocalDate dataDeVenda1, float valorRecebido, int idVenda1) {
         this.itemVenda = itemVenda;
         this.valorTotal = valorTotal;
         this.dataDeVenda = LocalDate.now();
         this.valorRecebido = valorRecebido;
-        this.idVenda = idVenda++;
+        this.idVenda = idVenda;
         
     }
 
@@ -69,7 +69,12 @@ public class Venda implements Serializable{
         this.dataDeVenda = dataDeVenda;
     }
     
-    
+    /// Metodo que cria uma venda
+//    public boolean criarVenda(Fila<itemVenda> itemVenda, float valorTotal,LocalDate dataDeVenda,float valorRecebido, int idVenda){
+//       Venda novaVenda = new Venda(itemVenda, valorTotal, dataDeVenda, valorRecebido, idVenda);
+//       
+//    }
+//    
     public static Boolean gravarVenda(Venda venda) {
         Fila<Venda> lista = lerVenda();
 
@@ -119,7 +124,7 @@ public class Venda implements Serializable{
 
      // Registrar nova venda
     public boolean registrarVenda(Fila<itemVenda> itens, float valorTotal, float valorRecebido, float troco) {
-        Venda venda = new Venda(itens, valorTotal, valorRecebido, troco); 
+        Venda venda = new Venda(itens, valorTotal, dataDeVenda, valorRecebido, idVenda); 
         return Venda.gravarVenda(venda);
     }
 

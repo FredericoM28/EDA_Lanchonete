@@ -40,11 +40,20 @@ public class TesteLanchonete {
        
 
         Fila<Pizza> fila = Pizza.lerPizza();
+        Fila<Object> filaItens =  new Fila();
+        while(!fila.estaVazia()){
+            Pizza pizza = fila.desenfileirar();
+            
+           itemVenda.adicionarItem(filaItens, pizza);
+        }
+        
+        Pizza.deletePizza(4);
         
         while(!fila.estaVazia()){
             Pizza pizza = fila.desenfileirar();
             System.out.println(pizza.getId());
         }
+
         
         Pizza.deletePizza(4);
         
@@ -52,6 +61,7 @@ public class TesteLanchonete {
             Pizza pizza = fila.desenfileirar();
             System.out.println(pizza.getId());
         }
+
 
     }
 }
