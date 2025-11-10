@@ -54,7 +54,7 @@ public class ControlTelaDeSalgados {
             if (atual != null) {
                 model.addRow(new Object[]{
                     atual.getId(),
-                    atual.getNomeSalgado(),
+                    atual.getNome(),
                     atual.getTipo(),
                     atual.getRecheio(),
                     atual.getMassa(),

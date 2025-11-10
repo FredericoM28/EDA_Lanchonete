@@ -13,6 +13,10 @@ import java.time.LocalDate;
 public class TesteLanchonete {
 
     public static void main(String[] args) {
-
+        Pizza.criarPizza("Margarida", "Carne", "Lisa", "Tomate", 200);
+       
+        Fila<Pizza> lista= Pizza.lerPizza();
+        lista.mostrarFila();
+        
     }
 }

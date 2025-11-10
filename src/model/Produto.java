@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Déleo Cambula
  */
-public class Produto {
+public class Produto implements Serializable{
     private int id;
     private String nome;
     private double preco;

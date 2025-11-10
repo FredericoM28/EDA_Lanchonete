@@ -16,10 +16,11 @@ import java.io.Serializable;
  *
  * @author Déleo Cambula
  */
-public class Salgadinho extends Produto{
+public class Salgadinho extends Produto implements Serializable{
     private String tipo;     // frito ou assado
     private String massa;
     private String recheio;
+    private static final long serialVersionUID = 1L;
 
     // Construtor
     public Salgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco, int idSalgadinho) {
