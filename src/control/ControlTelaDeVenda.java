@@ -22,12 +22,12 @@ import view.TelaDeVenda;
  *
  * @author HP
  */
-
 public class ControlTelaDeVenda {
 
     //metodo para listar Venda Salgados
     private final TelaDeVenda telaVenda;
-    Fila<Object> itens= new Fila<>();
+    Fila<Object> itens = new Fila<>();
+
     public ControlTelaDeVenda(TelaDeVenda view) {
         this.telaVenda = view;
     }
@@ -76,60 +76,56 @@ public class ControlTelaDeVenda {
         }
 
     }
-    
+
     //Metodo para selecionar a tabela Pizza
-    public void selecionartabelaPizza(){
+    public void selecionartabelaPizza() {
         int linha = telaVenda.getTabelaPizzaVenda().getSelectedRow();
-        
-        String id= telaVenda.getTabelaPizzaVenda().getValueAt(linha,0).toString();
+
+        String id = telaVenda.getTabelaPizzaVenda().getValueAt(linha, 0).toString();
         telaVenda.getTfIdVenda().setText(id);
     }
-      public void selecionartabelaSalgados(){
+
+    public void selecionartabelaSalgados() {
         int linha = telaVenda.getTabelaSalgadosVenda().getSelectedRow();
-        
-        String id= telaVenda.getTabelaSalgadosVenda().getValueAt(linha,0).toString();
+
+        String id = telaVenda.getTabelaSalgadosVenda().getValueAt(linha, 0).toString();
         telaVenda.getTfIdVenda().setText(id);
     }
-    
+
     //Metodo para listar no carrinho
-//    public void listarItens() {
-//        DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
-//        model.setRowCount(0);
-//
-//        Fila<itemVenda> fila = itemVenda.lerItemVenda();
-//
-//        while (!fila.estaVazia()) {
-//           // Fila<itemVenda> filaOrdenada = Salgadinho.ordenarPorPreco(fila);
-//            itemVenda atual = fila.desenfileirar();
-//
-//            if (atual != null) {
-//                model.addRow(new Object[]{
-//                    atual.getItem(),
-//                    atual.getQtd(),
-//                });
-//
-//            }
-//
-//        }
-//}
-        
-//        public void adicionarItemNoCarrinho() {
-//
-//        
-//
-//            int id = Integer.parseInt(telaVenda.getTfIdVenda().getText());
-//            int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText());
-//            Pizza pizza = Pizza.lerPizzaPorId(id);
-//            Salgadinho salgado= Salgadinho.lerPizzaPorId(id);
-//            while(pizza!=null || salgado!=null){
-//            if(pizza.getId()==id){
-//            itens=itemVenda.adicionarItem(itens,pizza);
-//            }else if(salgado.getId()==id){
-//                itens= itemVenda.adicionarItem(itens,salgado);
-//            }
-//            }
-//
-//}
+    public void listarItens() {
+        DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
+        model.setRowCount(0);
+
+        Fila<itemVenda> fila = (Fila<itemVenda>) itemVenda.listarItens(itens);
+
+        while (!fila.estaVazia()) {
+
+            itemVenda atual = fila.desenfileirar();
+
+            if (atual != null) {
+                model.addRow(new Object[]{
+                    atual.getItem(),
+                    atual.getQtd(),});
+
+            }
+
+        }
+    }
+
+    public void adicionarItemNoCarrinho() {
+
+        int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
+        //int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText());
+        Pizza pizza = Pizza.lerPizzaPorId(id);
+        Salgadinho salgado = Salgadinho.lerPizzaPorId(id);
+        while (pizza != null || salgado != null) {
+            if (pizza.getId() == id) {
+                itens = itemVenda.adicionarItem(itens, pizza);
+            } else if (salgado.getId() == id) {
+                itens = itemVenda.adicionarItem(itens, salgado);
+            }
+
 //     
 //                try {
 //                    double valorTotal = Venda.calcPrecoTotal(itens);
@@ -164,7 +160,7 @@ public class ControlTelaDeVenda {
 //                JOptionPane.showMessageDialog(null, "O produto já está na lista", "Produto na Lista", quantidade);
 //
 //            }
-//        }
+        }
 //        // Conversão do precoTotal da venda
 //        double valorTotal = Venda.calcPrecoTotal(itens);
 //        String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
@@ -217,7 +213,5 @@ public class ControlTelaDeVenda {
 //        }
 //    }
 
-
-    
-    
+    }
 }

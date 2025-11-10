@@ -16,40 +16,17 @@ import java.io.Serializable;
  *
  * @author Déleo Cambula
  */
-public class Salgadinho implements Serializable {
-
+public class Salgadinho extends Produto{
     private String tipo;     // frito ou assado
     private String massa;
     private String recheio;
-    private double preco;
-    private int idSalgadinho;
-    private String nomeSalgado;
-    private static final long serialVersionUID = 1L;
-
-    public int getIdSalgadinho() {
-        return idSalgadinho;
-    }
-
-    public void setIdSalgadinho(int idSalgadinho) {
-        this.idSalgadinho = idSalgadinho;
-    }
-
-    public String getNomeSalgado() {
-        return nomeSalgado;
-    }
-
-    public void setNomeSalgado(String nomeSalgado) {
-        this.nomeSalgado = nomeSalgado;
-    }
 
     // Construtor
     public Salgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco, int idSalgadinho) {
-        this.nomeSalgado = nomeDoSalgado;
+        super(idSalgadinho, nomeDoSalgado, preco);
         this.tipo = tipo;
         this.massa = massa;
         this.recheio = recheio;
-        this.preco = preco;
-        this.idSalgadinho = idSalgadinho;
     }
 
     public Salgadinho() {
@@ -89,22 +66,6 @@ public class Salgadinho implements Serializable {
 
     public void setRecheio(String recheio) {
         this.recheio = recheio;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public int getId() {
-        return idSalgadinho;
-    }
-
-    public void setId(int idSalgadinho) {
-        this.idSalgadinho = idSalgadinho;
     }
 
     private static Boolean gravarSalgadinho(Salgadinho salgado) {
@@ -260,12 +221,9 @@ public class Salgadinho implements Serializable {
     @Override
     public String toString() {
         return "Salgadinho{"
-                + "Id='" + idSalgadinho + '\''
-                + "nome='" + nomeSalgado + '\''
                 + "tipo='" + tipo + '\''
                 + ", massa='" + massa + '\''
                 + ", recheio='" + recheio + '\''
-                + ", preco=" + preco
                 + '}';
     }
 }

@@ -4,6 +4,10 @@
  */
 package view;
 
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import javax.tools.Tool;
+
 /**
  *
  * @author HP
@@ -56,6 +60,12 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
         jLabel8.setText("Senha:");
 
         jLabel9.setText("Nivel de Acesso:");
+
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNomeKeyTyped(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
 
@@ -182,6 +192,15 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
+        // TODO add your handling code here:
+         if(Character.isDigit(evt.getKeyChar())){
+           evt.consume();
+             Toolkit.getDefaultToolkit().beep();
+           JOptionPane.showMessageDialog(null, "Digite apenas Texto, digitos não são permitidos");
+       }
+    }//GEN-LAST:event_tfNomeKeyTyped
 
     /**
      * @param args the command line arguments

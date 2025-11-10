@@ -5,8 +5,11 @@
 package view;
 
 import control.ControlTelaDePizza;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -194,6 +197,11 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyPressed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +241,18 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tabelaPizza);
+
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNomeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNomeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNomeKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Preco:");
 
@@ -374,6 +394,43 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
     private void tfRecheioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRecheioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfRecheioActionPerformed
+
+    private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
+        int c = evt.getKeyChar();
+        boolean isValid = Character.isLetter(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE;
+        if (!isValid) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Digite apenas Texto, digitos não são permitidos");
+        }
+         int key = evt.getKeyCode();
+        if (KeyEvent.VK_PAGE_DOWN == key) {
+            JOptionPane.showMessageDialog(null, "BOm dia");
+            getTfRecheio().requestFocus();
+
+        }
+    }//GEN-LAST:event_tfNomeKeyTyped
+
+    private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
+        int key = evt.getKeyCode();
+        if (KeyEvent.VK_PAGE_DOWN == key) {
+            JOptionPane.showMessageDialog(null, "BOm dia");
+            getTfRecheio().requestFocus();
+
+        }
+    }//GEN-LAST:event_tfNomeKeyPressed
+
+    private void tfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyReleased
+        int key = evt.getKeyCode();
+        if (KeyEvent.VK_PAGE_DOWN == key) {
+            getTfRecheio().requestFocus();
+            JOptionPane.showMessageDialog(null, "BOm dia");
+        }
+    }//GEN-LAST:event_tfNomeKeyReleased
+
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarKeyPressed
 
     /**
      * @param args the command line arguments
