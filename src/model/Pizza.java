@@ -32,15 +32,9 @@ public class Pizza extends Produto implements Serializable{
     public Pizza(){}
 
     public static Boolean criarPizza(String nomePizza, String recheio, String borda, String molho, double preco){
-        Pizza novaPizza = new Pizza(incrementarId(), nomePizza, recheio, borda, molho, preco);
+        Pizza novaPizza = new Pizza(Produto.incrementarId(), nomePizza, recheio, borda, molho, preco);
         
         return gravarPizza(novaPizza);
-    }
-        
-    //metodo para incrementar id da pizza
-    private static int incrementarId() {
-        Fila<Pizza> fila = lerPizza();
-        return fila.tamanho() + 1;
     }
 
     // Getters e Setters
