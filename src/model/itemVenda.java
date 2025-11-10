@@ -70,7 +70,7 @@ public class ItemVenda implements Serializable {
                 return produto;
             }
         }
-        return new Produto();
+        return new Produto() {};
     }
 
     public static float precoTotal(Fila<ItemVenda> fila) {
