@@ -80,11 +80,11 @@ public class TelaDeVenda extends javax.swing.JFrame {
     }
 
     public JLabel getLblValorTotal1() {
-        return lblValorTotal1;
+        return lblTrocos;
     }
 
     public void setLblValorTotal1(JLabel lblValorTotal1) {
-        this.lblValorTotal1 = lblValorTotal1;
+        this.lblTrocos = lblValorTotal1;
     }
 
     public JTable getTabelaCarrinhoVenda() {
@@ -117,6 +117,14 @@ public class TelaDeVenda extends javax.swing.JFrame {
 
     public void setTfValorRecebido(JTextField tfValorRecebido) {
         this.tfValorRecebido = tfValorRecebido;
+    }
+
+    public JLabel getLblTrocos() {
+        return lblTrocos;
+    }
+
+    public void setLblTrocos(JLabel lblTrocos) {
+        this.lblTrocos = lblTrocos;
     }
     
 
@@ -151,7 +159,7 @@ public class TelaDeVenda extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lblValorTotal = new javax.swing.JLabel();
         tfValorRecebido = new javax.swing.JTextField();
-        lblValorTotal1 = new javax.swing.JLabel();
+        lblTrocos = new javax.swing.JLabel();
         btnFinalizarVenda = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         tfIdVenda = new javax.swing.JTextField();
@@ -184,6 +192,11 @@ public class TelaDeVenda extends javax.swing.JFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         tabelaPizzaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -312,7 +325,7 @@ public class TelaDeVenda extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(29, 29, 29)
-                                .addComponent(lblValorTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblTrocos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(94, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -356,7 +369,7 @@ public class TelaDeVenda extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(lblValorTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTrocos, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addComponent(btnFinalizarVenda)
                         .addGap(29, 29, 29)))
@@ -375,6 +388,7 @@ public class TelaDeVenda extends javax.swing.JFrame {
 
     private void btnFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarVendaActionPerformed
         // TODO add your handling code here:
+        controlTelaDeVenda.finalizarVenda();
         controlTelaListarVenda.listarVendas();
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 
@@ -389,8 +403,12 @@ public class TelaDeVenda extends javax.swing.JFrame {
 
     private void brnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAdicionarActionPerformed
         controlTelaDeVenda.adicionarItemNoCarrinho();
-        controlTelaDeVenda.listarItens();
+        
     }//GEN-LAST:event_brnAdicionarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        controlTelaDeVenda.removerItemDoCarinho();
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -449,8 +467,8 @@ public class TelaDeVenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTrocos;
     private javax.swing.JLabel lblValorTotal;
-    private javax.swing.JLabel lblValorTotal1;
     private javax.swing.JTable tabelaCarrinhoVenda;
     private javax.swing.JTable tabelaPizzaVenda;
     private javax.swing.JTable tabelaSalgadosVenda;

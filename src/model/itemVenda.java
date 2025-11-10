@@ -11,12 +11,12 @@ import java.util.List;
  *
  * @author Déleo Cambula
  */
-public class itemVenda implements Serializable {
+public class ItemVenda implements Serializable {
     private Produto item; // Pode ser Salgado ou Pizza
     private int Qtd;
     private static final long serialVersionUID = 1L;
 
-    public itemVenda(Produto item, int Qtd) {
+    public ItemVenda(Produto item, int Qtd) {
         this.item = item;
         this.Qtd = Qtd;
     }
@@ -37,17 +37,17 @@ public class itemVenda implements Serializable {
         this.Qtd = Qtd;
     }  
 
-    public static Fila<itemVenda> adicionarItem(Fila<itemVenda> fila, Produto produto, int qtd) {
-        itemVenda item = new itemVenda(produto, qtd);
+    public static Fila<ItemVenda> adicionarItem(Fila<ItemVenda> fila, Produto produto, int qtd) {
+        ItemVenda item = new ItemVenda(produto, qtd);
         fila.enfileirar(item);
         return fila; 
     }
 
-    public static Fila<itemVenda> removerItem(Fila<itemVenda> fila, int id) {
-        Fila<itemVenda> aux = new Fila<>();
+    public static Fila<ItemVenda> removerItem(Fila<ItemVenda> fila, int id) {
+        Fila<ItemVenda> aux = new Fila<>();
 
         while (!fila.estaVazia()) {
-            itemVenda produto = fila.desenfileirar();
+            ItemVenda produto = fila.desenfileirar();
             
             if(produto.getItem().getId() != id){
                 aux.enfileirar(produto);
@@ -62,7 +62,7 @@ public class itemVenda implements Serializable {
         return fila;
     }
 
-    public static Produto buscarPorNome(Fila<itemVenda> fila, String nome) {
+    public static Produto buscarPorNome(Fila<ItemVenda> fila, String nome) {
         while (fila.estaVazia()) {
             Produto produto = fila.desenfileirar().getItem();
             
@@ -73,18 +73,18 @@ public class itemVenda implements Serializable {
         return new Produto() {};
     }
 
-    public static float precoTotal(Fila<itemVenda> fila) {
+    public static float precoTotal(Fila<ItemVenda> fila) {
         float total = 0;
 
         while (!fila.estaVazia()) {
-            itemVenda obj = fila.desenfileirar();        
+            ItemVenda obj = fila.desenfileirar();        
             total += obj.getItem().getPreco()*obj.getQtd();                
         }
         return total;
     }
 
     // Calcular o troco
-    public static float troco(float valorRecebido, Fila<itemVenda> fila) {     
+    public static float troco(float valorRecebido, Fila<ItemVenda> fila) {     
         float total = precoTotal(fila);
         if(valorRecebido<total){
            

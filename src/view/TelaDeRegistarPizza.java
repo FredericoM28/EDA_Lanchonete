@@ -5,6 +5,7 @@
 package view;
 
 import control.ControlTelaDePizza;
+import control.ControlTelaDeVenda;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
      * Creates new form TelaDeRegistarLanches
      */
     ControlTelaDePizza controlTelaDePizza;
+    ControlTelaDeVenda controlTelaDevenda;
 
     public TelaDeRegistarPizza() {
         initComponents();
@@ -364,18 +366,25 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
         controlTelaDePizza.registarPizza();
         controlTelaDePizza.listarPizza();
         controlTelaDePizza.limparCampos();
+        controlTelaDevenda.listarPizzas();
+        controlTelaDevenda.listarSalgados();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         controlTelaDePizza.editarPizza();
         controlTelaDePizza.listarPizza();
         controlTelaDePizza.limparCampos();
+        controlTelaDevenda.listarPizzas();
+        controlTelaDevenda.listarSalgados();
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
         controlTelaDePizza.deletarPizza();
         controlTelaDePizza.listarPizza();
         controlTelaDePizza.limparCampos();
+        controlTelaDevenda.listarPizzas();
+        controlTelaDevenda.listarSalgados();
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void cbTipoDeBordaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoDeBordaActionPerformed

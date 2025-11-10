@@ -16,11 +16,13 @@ import java.io.Serializable;
  *
  * @author Déleo Cambula
  */
-public class Salgadinho extends Produto implements Serializable{
+public class Salgadinho extends Produto implements Serializable {
+
     private String tipo;     // frito ou assado
     private String massa;
     private String recheio;
-        private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
     // Construtor
     public Salgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco, int idSalgadinho) {
         super(idSalgadinho, nomeDoSalgado, preco);
@@ -31,12 +33,13 @@ public class Salgadinho extends Produto implements Serializable{
 
     public Salgadinho() {
     }
-    
-    public static Boolean criarSalgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco){
+
+    public static Boolean criarSalgadinho(String nomeDoSalgado, String tipo, String massa, String recheio, double preco) {
         Salgadinho novoSalgadinho = new Salgadinho(nomeDoSalgado, tipo, massa, recheio, preco, incrementarId());
-        
+
         return gravarSalgadinho(novoSalgadinho);
     }
+
     // Getters e Setters
     public String getTipo() {
         return tipo;
@@ -135,7 +138,7 @@ public class Salgadinho extends Produto implements Serializable{
         Fila<Salgadinho> auxiliar = new Fila<>();
         Fila<Salgadinho> fila = lerSalgadinho();
         Salgadinho novoSalgadinho = new Salgadinho(nomeDoSalgado, tipo, massa, recheio, preco, id);
-        
+
         while (!fila.estaVazia()) {
             Salgadinho atual = fila.desenfileirar();
 
@@ -194,7 +197,7 @@ public class Salgadinho extends Produto implements Serializable{
         while (!ordenada.estaVazia()) {
             fila.enfileirar(ordenada.desenfileirar());
         }
-        
+
         return fila;
     }
 

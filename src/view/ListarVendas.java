@@ -22,6 +22,7 @@ public class ListarVendas extends javax.swing.JFrame {
         this.controlListarVenda= new ControlTelaListarVenda(this);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        controlListarVenda.listarVendas();
     }
 
     public JTable getTabelaVendas() {

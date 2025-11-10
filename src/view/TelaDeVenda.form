@@ -105,7 +105,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="lblValorTotal1" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="lblTrocos" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="94" max="32767" attributes="0"/>
@@ -163,7 +163,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblValorTotal1" min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="lblTrocos" min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="btnFinalizarVenda" min="-2" max="-2" attributes="0"/>
@@ -204,6 +204,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Remover"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
           <AuxValues>
@@ -361,7 +364,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfValorRecebido">
         </Component>
-        <Component class="javax.swing.JLabel" name="lblValorTotal1">
+        <Component class="javax.swing.JLabel" name="lblTrocos">
         </Component>
         <Component class="javax.swing.JButton" name="btnFinalizarVenda">
           <Properties>
