@@ -102,29 +102,32 @@ public class ControlTelaDeVenda {
     }
 
     //Metodo para listar no carrinho
-    public void listarItens() {
-        DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
-        model.setRowCount(0);
+public void listarItens() {
+    DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
+    model.setRowCount(0);
 
-        while (!this.itens.estaVazia()) {
+    Fila<ItemVenda> aux = new Fila<>();
 
-            ItemVenda atual = this.itens.desenfileirar();
+    while (!this.itens.estaVazia()) {
+        ItemVenda atual = this.itens.desenfileirar();
+        aux.enfileirar(atual);
 
-            if (atual != null) {
-                model.addRow(new Object[]{
-                    atual.getItem().getId(),
-                    atual.getItem().getNome(),
-                    atual.getQtd()});
-
-            }
-
-        }
+        model.addRow(new Object[]{
+            atual.getItem().getId(),
+            atual.getItem().getNome(),
+            atual.getQtd()
+        });
     }
+
+    while (!aux.estaVazia()) {
+        this.itens.enfileirar(aux.desenfileirar());
+    }
+}
+
 
     public void adicionarItemNoCarrinho() {
 
         int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
-
         int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
 
         Fila<Pizza> fila = Pizza.lerPizza();//le pizza ou salgadinhi
@@ -132,15 +135,13 @@ public class ControlTelaDeVenda {
             JOptionPane.showMessageDialog(null, "Não há salgadinhos disponíveis!", "Estoque Vazio", JOptionPane.WARNING_MESSAGE);
             return; // Sai do método sem executar o restante
         }
-        while (!fila.estaVazia()) {
-            Produto produto = fila.desenfileirar();//pega uma pizza ou slagadinho atribui como produtp
 
+            Produto produto = Produto.lerProdutoPorId(id);//pega uma pizza ou slagadinho atribui como produtp
+            if(produto == null){System.out.println("nullo"); return;}
             //if (itens != null) {
-            itemAuxiliar = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
+            this.itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
             listarItens();
-            System.out.println(itemAuxiliar.tamanho());
-            itemAuxiliar.mostrarFila();
-            System.out.println(itemAuxiliar.toString());
+
 
             try {
                 float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
@@ -180,7 +181,7 @@ public class ControlTelaDeVenda {
 
             telaVenda.getLblValorTotal().setText(valorFormatado);
 
-        }
+        
     }
 
     

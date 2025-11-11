@@ -6,12 +6,13 @@ package model;
 
 import java.io.Serializable;
 import static model.Pizza.lerPizza;
+import static model.Salgadinho.lerSalgadinho;
 
 /**
  *
  * @author Déleo Cambula
  */
-public abstract class Produto implements Serializable{
+public class Produto implements Serializable{
     private int id;
     private String nome;
     private double preco;
@@ -54,4 +55,30 @@ public abstract class Produto implements Serializable{
     public void setPreco(double preco) {
         this.preco = preco;
     }   
+    
+public static Produto lerProdutoPorId(int id) {
+    // Ler os salgadinhos
+    Fila<Salgadinho> filaSalgadinhos = lerSalgadinho();
+
+    while (!filaSalgadinhos.estaVazia()) {
+        Salgadinho atual = filaSalgadinhos.desenfileirar();
+        if (atual.getId() == id) {
+            return atual;
+        }
+    }
+
+    // Ler as pizzas
+    Fila<Pizza> filaPizzas = lerPizza();
+
+    while (!filaPizzas.estaVazia()) {
+        Pizza atual = filaPizzas.desenfileirar();
+        if (atual.getId() == id) {
+            return atual;
+        }
+    }
+
+    // Se não encontrar nenhum produto
+    return null;
+}
+
 }
