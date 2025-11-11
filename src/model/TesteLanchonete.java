@@ -21,11 +21,14 @@ public class TesteLanchonete {
         
         Fila<ItemVenda> itens = new Fila();//cria uma fila inicial do tipo item venda
         
-        itens = ItemVenda.adicionarItem(itens, produto, 2);//adiciona item, e o metodo retorna o item adicionado
+        itens = ItemVenda.adicionarItem(itens, produto, 4);//adiciona item, e o metodo retorna o item adicionado
         
         while(!itens.estaVazia()){
-            ItemVenda item = itens.desenfileirar();
-            System.out.println(item.getItem().getNome());
+            
+            float valor= ItemVenda.precoTotal(itens);
+            System.out.println(valor);
+           // System.out.println(itens.getClass().getNome());
+            //System.out.println(itens.getItem().getPreco());
         }
             
         

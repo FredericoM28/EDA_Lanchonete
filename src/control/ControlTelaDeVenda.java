@@ -28,7 +28,8 @@ public class ControlTelaDeVenda {
 
     //metodo para listar Venda Salgados
     private final TelaDeVenda telaVenda;
-    Fila<ItemVenda> itens = new Fila<>();
+    Fila<ItemVenda> itens = new Fila();
+    Fila<ItemVenda> itemAuxiliar = new Fila();
 
     public ControlTelaDeVenda(TelaDeVenda view) {
         this.telaVenda = view;
@@ -48,8 +49,11 @@ public class ControlTelaDeVenda {
             if (atual != null) {
                 model.addRow(new Object[]{
                     atual.getId(),
-                    atual.toString()
-                });
+                    atual.getNome(),
+                    atual.getRecheio(),
+                    atual.getBorda(),
+                    atual.getMolho(),
+                    atual.getPreco(),});
 
             }
         }
@@ -70,8 +74,11 @@ public class ControlTelaDeVenda {
             if (atual != null) {
                 model.addRow(new Object[]{
                     atual.getId(),
-                    atual.toString()
-                });
+                    atual.getNome(),
+                    atual.getTipo(),
+                    atual.getRecheio(),
+                    atual.getMassa(),
+                    atual.getPreco(),});
 
             }
 
@@ -99,33 +106,9 @@ public class ControlTelaDeVenda {
         DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
         model.setRowCount(0);
 
-<<<<<<< HEAD
-        while (!itens.estaVazia()) {
+        while (!this.itens.estaVazia()) {
 
-            ItemVenda atual = itens.desenfileirar();
-=======
-<<<<<<< HEAD
-        Fila<ItemVenda> fila = itens;
-=======
-<<<<<<< HEAD
-       // Fila<ItemVenda> fila = itens;
-=======
-        Fila<itemVenda> fila = itens;
->>>>>>> 191a1c3ba4b9143a730499241c83a2e83dbcb0f9
->>>>>>> 930fcb238a05081a3a7f9a672a237b53ab89faac
-
-        while (!itens.estaVazia()) {
-
-<<<<<<< HEAD
-            ItemVenda atual = fila.desenfileirar();
-=======
-<<<<<<< HEAD
-            ItemVenda atual = itens.desenfileirar();
-=======
-            itemVenda atual = fila.desenfileirar();
->>>>>>> 191a1c3ba4b9143a730499241c83a2e83dbcb0f9
->>>>>>> 930fcb238a05081a3a7f9a672a237b53ab89faac
->>>>>>> f7f15d34b71537b8876965f4718f9e3685273428
+            ItemVenda atual = this.itens.desenfileirar();
 
             if (atual != null) {
                 model.addRow(new Object[]{
@@ -143,76 +126,64 @@ public class ControlTelaDeVenda {
         int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
 
         int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
-<<<<<<< HEAD
+
         Fila<Pizza> fila = Pizza.lerPizza();//le pizza ou salgadinhi
-
-        Produto produto = fila.desenfileirar();//pega uma pizza ou slagadinho atribui como produtp
-
-        //if (itens != null) {
-        itens = ItemVenda.adicionarItem(itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
-        listarItens();
-=======
-        Pizza pizza = Pizza.lerPizzaPorId(id);
-        Salgadinho salgado = Salgadinho.lerPizzaPorId(id);
-        while (pizza != null || salgado != null) {
-            if (pizza.getId() == id) {
-<<<<<<< HEAD
-                itens = ItemVenda.adicionarItem(itens, pizza, id);
-            } else if (salgado.getId() == id) {
-                itens = ItemVenda.adicionarItem(itens, salgado, id);
-=======
-<<<<<<< HEAD
-                itens = ItemVenda.adicionarItem(itens, pizza, quantidade);
-            } else if (salgado.getId() == id) {
-                itens = ItemVenda.adicionarItem(itens, salgado, quantidade);
-=======
-                itens = itemVenda.adicionarItem(itens, pizza, id);
-            } else if (salgado.getId() == id) {
-                itens = itemVenda.adicionarItem(itens, salgado, id);
->>>>>>> 191a1c3ba4b9143a730499241c83a2e83dbcb0f9
->>>>>>> 930fcb238a05081a3a7f9a672a237b53ab89faac
-            }
->>>>>>> f7f15d34b71537b8876965f4718f9e3685273428
-
-//     
-        try {
-            double valorTotal = ItemVenda.precoTotal(itens);
-
-            // ✅ Validar se o valor é válido
-            if (Double.isNaN(valorTotal) || Double.isInfinite(valorTotal)) {
-                telaVenda.getLblValorTotal().setText("0.00");
-                return;
-            }
-
-            // ✅ Garantir que o valor não seja negativo
-            if (valorTotal < 0) {
-                valorTotal = 0.00;
-            }
-
-            // ✅ Formatar com duas casas decimais e locale correto
-            String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
-
-            // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
-            valorFormatado = valorFormatado.replace(".", ",");
-
-            telaVenda.getLblValorTotal().setText(valorFormatado);
-
-        } catch (Exception e) {
-            System.err.println("Erro ao calcular preço total: " + e.getMessage());
-            telaVenda.getLblValorTotal().setText("0,00");
+        if (fila.estaVazia()) {
+            JOptionPane.showMessageDialog(null, "Não há salgadinhos disponíveis!", "Estoque Vazio", JOptionPane.WARNING_MESSAGE);
+            return; // Sai do método sem executar o restante
         }
+        while (!fila.estaVazia()) {
+            Produto produto = fila.desenfileirar();//pega uma pizza ou slagadinho atribui como produtp
+
+            //if (itens != null) {
+            itemAuxiliar = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
+            listarItens();
+            System.out.println(itemAuxiliar.tamanho());
+            itemAuxiliar.mostrarFila();
+            System.out.println(itemAuxiliar.toString());
+
+            try {
+                float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
+                System.out.println(valorTotal);
+                // ✅ Validar se o valor é válido
+
+                if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
+                    telaVenda.getLblValorTotal().setText("0.00");
+                    return;
+                }
+
+                // ✅ Garantir que o valor não seja negativo
+                if (valorTotal < 0) {
+                    valorTotal = (float) 0.00;
+                }
+
+                // ✅ Formatar com duas casas decimais e locale correto
+                String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
+
+                // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
+                valorFormatado = valorFormatado.replace(".", ",");
+
+                telaVenda.getLblValorTotal().setText(valorFormatado);
+
+            } catch (Exception e) {
+                System.err.println("Erro ao calcular preço total: " + e.getMessage());
+                telaVenda.getLblValorTotal().setText("0,00");
+            }
 
 //        } else {
 //            JOptionPane.showMessageDialog(null, "O produto já está na lista", "Produto na Lista", quantidade);
 //
 //        }
-        // Conversão do precoTotal da venda
-        double valorTotal = ItemVenda.precoTotal(itens);
-        String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
+            // Conversão do precoTotal da venda
+            float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
+            String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
 
-        telaVenda.getLblValorTotal().setText(valorFormatado);
+            telaVenda.getLblValorTotal().setText(valorFormatado);
 
+        }
     }
+
+    
 
     public void removerItemDoCarinho() {
         try {
@@ -261,9 +232,9 @@ public class ControlTelaDeVenda {
 
         float ValorRecebido = Float.parseFloat(telaVenda.getTfValorRecebido().getText().trim());
 
-        if(Venda.criarVenda(itens, LocalDate.now(), ValorRecebido)){
+        if (Venda.criarVenda(itens, LocalDate.now(), ValorRecebido)) {
             JOptionPane.showMessageDialog(null, "Venda Finalizada com sucesso");
-        }else{
+        } else {
             System.out.println("Erro ao cria finalizar Venda");
         }
 

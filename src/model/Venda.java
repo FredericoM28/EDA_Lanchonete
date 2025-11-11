@@ -71,13 +71,9 @@ public class Venda implements Serializable{
     }
     
     /// Metodo que cria uma venda
-<<<<<<< HEAD
     public static boolean criarVenda(Fila<ItemVenda> itemVenda, LocalDate dataDeVenda,float valorRecebido){
        float valorTotal = ItemVenda.precoTotal(itemVenda);
-=======
-    public boolean criarVenda(Fila<ItemVenda> itemVenda, LocalDate dataDeVenda,float valorRecebido){
-       float valorTotal = itemVenda.precoTotal(itemVenda);
->>>>>>> f7f15d34b71537b8876965f4718f9e3685273428
+   
        Venda novaVenda = new Venda(itemVenda, valorTotal, dataDeVenda, valorRecebido, incrementarId());
        
        return gravarVenda(novaVenda);

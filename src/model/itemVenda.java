@@ -82,6 +82,7 @@ public class ItemVenda implements Serializable {
         }
         return total;
     }
+    
 
     // Calcular o troco
     public static float troco(float valorRecebido, Fila<ItemVenda> fila) {     
