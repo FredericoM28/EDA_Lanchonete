@@ -233,6 +233,12 @@ public class TelaDeVenda extends javax.swing.JFrame {
 
         jLabel5.setText("Trocos:");
 
+        tfValorRecebido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfValorRecebidoKeyPressed(evt);
+            }
+        });
+
         btnFinalizarVenda.setText("Finalizar Venda");
         btnFinalizarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,6 +430,10 @@ public class TelaDeVenda extends javax.swing.JFrame {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         controlTelaDeVenda.removerItemDoCarinho();
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void tfValorRecebidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorRecebidoKeyPressed
+        controlTelaDeVenda.calculoTrocos();
+    }//GEN-LAST:event_tfValorRecebidoKeyPressed
 
     /**
      * @param args the command line arguments

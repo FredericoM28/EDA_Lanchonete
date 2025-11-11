@@ -5,11 +5,8 @@
 package control;
 
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.Locale;
-import javax.print.attribute.standard.Fidelity;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 import model.Fila;
 import model.ItemVenda;
@@ -121,6 +118,17 @@ public class ControlTelaDeVenda {
         }
     }
 
+    public void calculoTrocos() {
+        String valorRecebidoTexto = telaVenda.getTfValorRecebido().getText().trim();
+
+        float valorRecebido = Float.parseFloat(valorRecebidoTexto);
+        float troco = ItemVenda.troco(valorRecebido, itens);
+        String trocoTexto = String.valueOf(troco);
+        trocoTexto.replace(",", ".").replaceAll("[^\\d.]", "");
+        telaVenda.getLblTrocos().setText(trocoTexto);
+
+    }
+
     public void adicionarItemNoCarrinho() {
 
         int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
@@ -132,58 +140,55 @@ public class ControlTelaDeVenda {
             JOptionPane.showMessageDialog(null, "Não há salgadinhos disponíveis!", "Estoque Vazio", JOptionPane.WARNING_MESSAGE);
             return; // Sai do método sem executar o restante
         }
-        while (!fila.estaVazia()) {
-            Produto produto = fila.desenfileirar();//pega uma pizza ou slagadinho atribui como produtp
 
-            //if (itens != null) {
-            itemAuxiliar = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
-            listarItens();
-            System.out.println(itemAuxiliar.tamanho());
-            itemAuxiliar.mostrarFila();
-            System.out.println(itemAuxiliar.toString());
+        Produto produto = fila.desenfileirar();//pega uma pizza ou slagadinho atribui como produtp
 
-            try {
-                float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
-                System.out.println(valorTotal);
-                // ✅ Validar se o valor é válido
+        //if (itens != null) {
+        itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
+        listarItens();
+        System.out.println(itens.tamanho());
+        itens.mostrarFila();
+        System.out.println(itemAuxiliar.toString());
 
-                if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
-                    telaVenda.getLblValorTotal().setText("0.00");
-                    return;
-                }
+        try {
+            float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
+            System.out.println(valorTotal);
+            // ✅ Validar se o valor é válido
 
-                // ✅ Garantir que o valor não seja negativo
-                if (valorTotal < 0) {
-                    valorTotal = (float) 0.00;
-                }
-
-                // ✅ Formatar com duas casas decimais e locale correto
-                String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
-
-                // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
-                valorFormatado = valorFormatado.replace(".", ",");
-
-                telaVenda.getLblValorTotal().setText(valorFormatado);
-
-            } catch (Exception e) {
-                System.err.println("Erro ao calcular preço total: " + e.getMessage());
-                telaVenda.getLblValorTotal().setText("0,00");
+            if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
+                telaVenda.getLblValorTotal().setText("0.00");
+                return;
             }
+
+            // ✅ Garantir que o valor não seja negativo
+            if (valorTotal < 0) {
+                valorTotal = (float) 0.00;
+            }
+
+            // ✅ Formatar com duas casas decimais e locale correto
+            String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
+
+            // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
+            valorFormatado = valorFormatado.replace(".", ",");
+
+            telaVenda.getLblValorTotal().setText(valorFormatado);
+
+        } catch (Exception e) {
+            System.err.println("Erro ao calcular preço total: " + e.getMessage());
+            telaVenda.getLblValorTotal().setText("0,00");
+        }
 
 //        } else {
 //            JOptionPane.showMessageDialog(null, "O produto já está na lista", "Produto na Lista", quantidade);
 //
 //        }
-            // Conversão do precoTotal da venda
-            float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
-            String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
+        // Conversão do precoTotal da venda
+        float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
+        String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
 
-            telaVenda.getLblValorTotal().setText(valorFormatado);
+        telaVenda.getLblValorTotal().setText(valorFormatado);
 
-        }
     }
-
-    
 
     public void removerItemDoCarinho() {
         try {
