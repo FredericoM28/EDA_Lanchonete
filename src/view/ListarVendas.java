@@ -5,7 +5,14 @@
 package view;
 
 import control.ControlTelaListarVenda;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -17,12 +24,46 @@ public class ListarVendas extends javax.swing.JFrame {
      * Creates new form ListarVendas
      */
     ControlTelaListarVenda controlListarVenda;
+    
     public ListarVendas() {
         initComponents();
-        this.controlListarVenda= new ControlTelaListarVenda(this);
+        this.controlListarVenda = new ControlTelaListarVenda(this);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         controlListarVenda.listarVendas();
+        aplicarEstiloModerno();
+    }
+
+    private void aplicarEstiloModerno() {
+        Color corPrimaria = new Color(155, 89, 182); // Roxo para vendas
+        Color corFundo = new Color(245, 245, 245);
+
+        getContentPane().setBackground(corFundo);
+        jPanel1.setBackground(corFundo);
+
+        // Estilizar título
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel1.setForeground(corPrimaria);
+
+        // Estilizar tabela
+        jScrollPane1.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            "Histórico de Vendas",
+            TitledBorder.DEFAULT_JUSTIFICATION,
+            TitledBorder.DEFAULT_POSITION,
+            new Font("Segoe UI", Font.BOLD, 12),
+            corPrimaria
+        ));
+
+        tabelaVendas.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        tabelaVendas.setRowHeight(25);
+        tabelaVendas.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabelaVendas.getTableHeader().setBackground(corPrimaria);
+        tabelaVendas.getTableHeader().setForeground(Color.WHITE);
+        
+        // Destacar linhas alternadas
+        tabelaVendas.setShowGrid(true);
+        tabelaVendas.setGridColor(new Color(230, 230, 230));
     }
 
     public JTable getTabelaVendas() {
@@ -48,7 +89,10 @@ public class ListarVendas extends javax.swing.JFrame {
         tabelaVendas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lista de Vendas");
         getContentPane().setLayout(new java.awt.GridLayout());
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Lista de Vendas");
@@ -82,17 +126,17 @@ public class ListarVendas extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);

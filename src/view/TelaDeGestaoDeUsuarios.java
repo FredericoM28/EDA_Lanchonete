@@ -4,9 +4,19 @@
  */
 package view;
 
-import java.awt.Toolkit;
-import javax.swing.JOptionPane;
-import javax.tools.Tool;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -21,6 +31,86 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        aplicarEstiloModerno();
+    }
+
+    private void aplicarEstiloModerno() {
+        Color corPrimaria = new Color(41, 128, 185);
+        Color corSecundaria = new Color(52, 152, 219);
+        Color corFundo = new Color(245, 245, 245);
+        Color corSucesso = new Color(46, 204, 113);
+        Color corPerigo = new Color(231, 76, 60);
+
+        getContentPane().setBackground(corFundo);
+        jPanel2.setBackground(corFundo);
+
+        // Estilizar título
+        jLabel6.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel6.setForeground(corPrimaria);
+
+        // Estilizar labels
+        JLabel[] labels = {jLabel7, jLabel8, jLabel9, jLabel10};
+        for (JLabel label : labels) {
+            label.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            label.setForeground(new Color(44, 62, 80));
+        }
+
+        // Estilizar campos de texto
+        JTextField[] camposTexto = {tfNome, tfNome1};
+        for (JTextField campo : camposTexto) {
+            campo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(206, 212, 218)),
+                BorderFactory.createEmptyBorder(5, 8, 5, 8)
+            ));
+        }
+
+        // Estilizar password field
+        pfSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        pfSenha.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+
+        // Estilizar combobox
+        cbNiveldeAcesso.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        cbNiveldeAcesso.setBackground(Color.WHITE);
+        cbNiveldeAcesso.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+
+        // Estilizar botões
+        btnSalvar.setBackground(corSucesso);
+        btnEditar.setBackground(corPrimaria);
+        btnDeletar.setBackground(corPerigo);
+        btnLimpar.setBackground(new Color(149, 165, 166));
+
+        JButton[] botoes = {btnSalvar, btnEditar, btnDeletar, btnLimpar};
+        for (JButton botao : botoes) {
+            botao.setForeground(Color.WHITE);
+            botao.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            botao.setBorder(new EmptyBorder(8, 15, 8, 15));
+            botao.setFocusPainted(false);
+            botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        }
+
+        // Estilizar tabela
+        jScrollPane1.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            "Lista de Usuários",
+            TitledBorder.DEFAULT_JUSTIFICATION,
+            TitledBorder.DEFAULT_POSITION,
+            new Font("Segoe UI", Font.BOLD, 12),
+            corPrimaria
+        ));
+
+        tabelaUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        tabelaUsuario.setRowHeight(25);
+        tabelaUsuario.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabelaUsuario.getTableHeader().setBackground(corPrimaria);
+        tabelaUsuario.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -196,11 +286,6 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
 
     private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
         // TODO add your handling code here:
-         if(Character.isDigit(evt.getKeyChar())){
-           evt.consume();
-             Toolkit.getDefaultToolkit().beep();
-           JOptionPane.showMessageDialog(null, "Digite apenas Texto, digitos não são permitidos");
-       }
     }//GEN-LAST:event_tfNomeKeyTyped
 
     /**

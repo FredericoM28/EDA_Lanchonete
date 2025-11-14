@@ -6,13 +6,21 @@ package view;
 
 import control.ControlTelaDePizza;
 import control.ControlTelaDeVenda;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -32,8 +40,81 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
         this.controlTelaDePizza = new ControlTelaDePizza(this);
         controlTelaDePizza.listarPizza();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        aplicarEstiloModerno();
     }
 
+    private void aplicarEstiloModerno() {
+        Color corPrimaria = new Color(231, 76, 60); // Vermelho para pizzas
+        Color corSecundaria = new Color(241, 148, 138);
+        Color corFundo = new Color(245, 245, 245);
+        Color corSucesso = new Color(46, 204, 113);
+        Color corPerigo = new Color(231, 76, 60);
+
+        getContentPane().setBackground(corFundo);
+        jPanel1.setBackground(corFundo);
+
+        // Estilizar título
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel1.setForeground(corPrimaria);
+
+        // Estilizar labels
+        JLabel[] labels = {jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7};
+        for (JLabel label : labels) {
+            label.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            label.setForeground(new Color(44, 62, 80));
+        }
+
+        // Estilizar campos de texto
+        JTextField[] camposTexto = {tfNome, tfRecheio, tfMolho, tfPreco, tfIdPizza};
+        for (JTextField campo : camposTexto) {
+            campo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(206, 212, 218)),
+                BorderFactory.createEmptyBorder(5, 8, 5, 8)
+            ));
+        }
+
+        // Estilizar combobox
+        cbTipoDeBorda.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        cbTipoDeBorda.setBackground(Color.WHITE);
+        cbTipoDeBorda.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+
+        // Estilizar botões
+        btnSalvar.setBackground(corSucesso);
+        btnEditar.setBackground(corPrimaria);
+        btnDeletar.setBackground(corPerigo);
+        btnLimpar.setBackground(new Color(149, 165, 166));
+
+        JButton[] botoes = {btnSalvar, btnEditar, btnDeletar, btnLimpar};
+        for (JButton botao : botoes) {
+            botao.setForeground(Color.WHITE);
+            botao.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            botao.setBorder(new EmptyBorder(8, 15, 8, 15));
+            botao.setFocusPainted(false);
+            botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        }
+
+        // Estilizar tabela
+        jScrollPane2.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            "Lista de Pizzas",
+            TitledBorder.DEFAULT_JUSTIFICATION,
+            TitledBorder.DEFAULT_POSITION,
+            new Font("Segoe UI", Font.BOLD, 12),
+            corPrimaria
+        ));
+
+        tabelaPizza.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        tabelaPizza.setRowHeight(25);
+        tabelaPizza.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabelaPizza.getTableHeader().setBackground(corPrimaria);
+        tabelaPizza.getTableHeader().setForeground(Color.WHITE);
+    }
+
+    // OS MÉTODOS GETTERS E SETTERS PERMANECEM EXATAMENTE OS MESMOS
     public JButton getBtnDeletar() {
         return btnDeletar;
     }
@@ -168,7 +249,10 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestão de Pizzas");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 550));
 
         jLabel1.setText("Gestão de Pizzas");
 
@@ -279,27 +363,27 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(tfRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(tfRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
-                                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(34, 34, 34)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel5))
                                         .addGap(31, 31, 31)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfMolho, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbTipoDeBorda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(tfMolho, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbTipoDeBorda, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(31, 31, 31)
-                                .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel7)
                                     .addGap(31, 31, 31)
-                                    .addComponent(tfIdPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                    .addComponent(tfIdPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jLabel1))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
@@ -312,8 +396,8 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
                         .addComponent(btnLimpar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,36 +409,36 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(tfIdPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
+                            .addComponent(tfIdPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbTipoDeBorda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbTipoDeBorda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(tfMolho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfMolho, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tfRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfRecheio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnDeletar)
-                    .addComponent(btnLimpar))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -392,7 +476,6 @@ public class TelaDeRegistarPizza extends javax.swing.JFrame {
     }//GEN-LAST:event_cbTipoDeBordaActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        // TODO add your handling code here:
         controlTelaDePizza.limparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
 

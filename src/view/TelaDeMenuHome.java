@@ -4,6 +4,14 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JButton;
+import javax.swing.border.EmptyBorder;
+
 /**
  *
  * @author HP
@@ -13,16 +21,65 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
     /**
      * Creates new form TelaDeMenuHome
      */
-    TelaDeRegistarPizza abrirTelaPizza= new TelaDeRegistarPizza();
-    TelaDeRegistarSalgados abrirTelaSalgados= new TelaDeRegistarSalgados();
-    TelaDeGestaoDeUsuarios abrirTelaUsuario= new TelaDeGestaoDeUsuarios();
-    TelaDeVenda abrirTelaVenda= new TelaDeVenda();
-    ListarVendas abrirListarVenda= new ListarVendas();
-    
-    
+    TelaDeRegistarPizza abrirTelaPizza = new TelaDeRegistarPizza();
+    TelaDeRegistarSalgados abrirTelaSalgados = new TelaDeRegistarSalgados();
+    TelaDeGestaoDeUsuarios abrirTelaUsuario = new TelaDeGestaoDeUsuarios();
+    TelaDeVenda abrirTelaVenda = new TelaDeVenda();
+    ListarVendas abrirListarVenda = new ListarVendas();
+
     public TelaDeMenuHome() {
         initComponents();
         setLocationRelativeTo(null);
+        aplicarEstiloModerno();
+    }
+
+    private void aplicarEstiloModerno() {
+        // Configurar cores modernas
+        Color corPrimaria = new Color(41, 128, 185);
+        Color corSecundaria = new Color(52, 152, 219);
+        Color corFundo = new Color(245, 245, 245);
+        Color corTexto = new Color(44, 62, 80);
+
+        getContentPane().setBackground(corFundo);
+        jPanel1.setBackground(corFundo);
+
+        // Estilizar título
+        jLabel1.setForeground(corPrimaria);
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 24));
+
+        // Estilizar botões
+        JButton[] botoes = {btnGerirUsuario, btnGerirPizza, btnGerirSalgados, btnEfectuarVenda, btnListarVenda};
+        for (JButton botao : botoes) {
+            botao.setBackground(corPrimaria);
+            botao.setForeground(Color.WHITE);
+            botao.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            botao.setBorder(new EmptyBorder(10, 20, 10, 20));
+            botao.setFocusPainted(false);
+            botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+            // Efeito hover
+            botao.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    botao.setBackground(corSecundaria);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    botao.setBackground(corPrimaria);
+                }
+            });
+        }
+
+        // Botão especial para Listar Vendas
+        btnListarVenda.setBackground(new Color(46, 204, 113));
+        btnListarVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnListarVenda.setBackground(new Color(39, 174, 96));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnListarVenda.setBackground(new Color(46, 204, 113));
+            }
+        });
     }
 
     /**
@@ -43,7 +100,10 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
         btnListarVenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Gestão - Menu Principal");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 400));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Tela de Menu ");
@@ -96,7 +156,7 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
                             .addComponent(btnGerirSalgados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGerirPizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGerirUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnListarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                            .addComponent(btnListarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                         .addGap(150, 150, 150))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -108,15 +168,15 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36)
-                .addComponent(btnGerirUsuario)
+                .addComponent(btnGerirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnGerirPizza)
+                .addComponent(btnGerirPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnGerirSalgados)
+                .addComponent(btnGerirSalgados, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
-                .addComponent(btnEfectuarVenda)
+                .addComponent(btnEfectuarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnListarVenda)
+                .addComponent(btnListarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -126,7 +186,6 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerirPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerirPizzaActionPerformed
-        // TODO add your handling code here:
         abrirTelaPizza.setVisible(true);
     }//GEN-LAST:event_btnGerirPizzaActionPerformed
 
@@ -135,12 +194,10 @@ public class TelaDeMenuHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerirUsuarioActionPerformed
 
     private void btnEfectuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectuarVendaActionPerformed
-        // TODO add your handling code here:
         abrirTelaVenda.setVisible(true);
     }//GEN-LAST:event_btnEfectuarVendaActionPerformed
 
     private void btnGerirSalgadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerirSalgadosActionPerformed
-        // TODO add your handling code here:
         abrirTelaSalgados.setVisible(true);
     }//GEN-LAST:event_btnGerirSalgadosActionPerformed
 

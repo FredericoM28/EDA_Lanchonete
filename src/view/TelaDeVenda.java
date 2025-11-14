@@ -6,10 +6,17 @@ package view;
 
 import control.ControlTelaDeVenda;
 import control.ControlTelaListarVenda;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -22,15 +29,100 @@ public class TelaDeVenda extends javax.swing.JFrame {
      */
     ControlTelaDeVenda controlTelaDeVenda;
     ControlTelaListarVenda controlTelaListarVenda;
+    
     public TelaDeVenda() {
         initComponents();
         setLocationRelativeTo(null);
-        this.controlTelaDeVenda= new ControlTelaDeVenda(this);
+        this.controlTelaDeVenda = new ControlTelaDeVenda(this);
         controlTelaDeVenda.listarPizzas();
         controlTelaDeVenda.listarSalgados();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        aplicarEstiloModerno();
     }
 
+    private void aplicarEstiloModerno() {
+        Color corPrimaria = new Color(41, 128, 185);
+        Color corSecundaria = new Color(52, 152, 219);
+        Color corFundo = new Color(245, 245, 245);
+        Color corSucesso = new Color(46, 204, 113);
+        Color corCarrinho = new Color(155, 89, 182);
+
+        getContentPane().setBackground(corFundo);
+        jPanel1.setBackground(corFundo);
+
+        // Estilizar título
+        jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel1.setForeground(corPrimaria);
+
+        // Estilizar labels das seções
+        jLabel2.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        jLabel2.setForeground(corPrimaria);
+        jLabel7.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        jLabel7.setForeground(corPrimaria);
+        jLabel9.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        jLabel9.setForeground(corCarrinho);
+
+        // Estilizar botões
+        brnAdicionar.setBackground(corSucesso);
+        btnRemover.setBackground(new Color(231, 76, 60));
+        btnFinalizarVenda.setBackground(new Color(155, 89, 182));
+
+        JButton[] botoes = {brnAdicionar, btnRemover, btnFinalizarVenda};
+        for (JButton botao : botoes) {
+            botao.setForeground(Color.WHITE);
+            botao.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            botao.setBorder(new EmptyBorder(8, 15, 8, 15));
+            botao.setFocusPainted(false);
+            botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        }
+
+        // Estilizar campos de texto
+        JTextField[] campos = {tfQtd, tfValorRecebido, tfIdVenda};
+        for (JTextField campo : campos) {
+            campo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(206, 212, 218)),
+                BorderFactory.createEmptyBorder(5, 8, 5, 8)
+            ));
+        }
+
+        // Estilizar tabelas com bordas
+        estilizarTabela(tabelaPizzaVenda, "Pizzas");
+        estilizarTabela(tabelaSalgadosVenda, "Salgados");
+        estilizarTabela(tabelaCarrinhoVenda, "Carrinho");
+
+        // Estilizar labels de valores
+        lblValorTotal.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblValorTotal.setForeground(corSucesso);
+        lblTrocos.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblTrocos.setForeground(new Color(231, 76, 60));
+
+        // Adicionar bordas às seções
+        jScrollPane3.setBorder(createTitledBorder("Pizzas Disponíveis"));
+        jScrollPane4.setBorder(createTitledBorder("Salgados Disponíveis"));
+        jScrollPane5.setBorder(createTitledBorder("Itens no Carrinho"));
+    }
+
+    private void estilizarTabela(JTable tabela, String titulo) {
+        tabela.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        tabela.setRowHeight(25);
+        tabela.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabela.getTableHeader().setBackground(new Color(41, 128, 185));
+        tabela.getTableHeader().setForeground(Color.WHITE);
+    }
+
+    private TitledBorder createTitledBorder(String title) {
+        return BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            title,
+            TitledBorder.DEFAULT_JUSTIFICATION,
+            TitledBorder.DEFAULT_POSITION,
+            new Font("Segoe UI", Font.BOLD, 12),
+            new Color(41, 128, 185)
+        );
+    }
+
+    // Os métodos getters e setters permanecem EXATAMENTE os mesmos
     public JTextField getTfQtd() {
         return tfQtd;
     }
@@ -126,7 +218,6 @@ public class TelaDeVenda extends javax.swing.JFrame {
     public void setLblTrocos(JLabel lblTrocos) {
         this.lblTrocos = lblTrocos;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,7 +271,10 @@ public class TelaDeVenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Vendas");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(900, 600));
 
         jLabel1.setText("Tela de Venda");
 
@@ -408,7 +502,6 @@ public class TelaDeVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarVendaActionPerformed
-        // TODO add your handling code here:
         controlTelaDeVenda.finalizarVenda();
         controlTelaListarVenda.listarVendas();
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
@@ -418,7 +511,6 @@ public class TelaDeVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaPizzaVendaMouseClicked
 
     private void tabelaSalgadosVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaSalgadosVendaMouseClicked
-        // TODO add your handling code here:
         controlTelaDeVenda.selecionartabelaSalgados();
     }//GEN-LAST:event_tabelaSalgadosVendaMouseClicked
 
