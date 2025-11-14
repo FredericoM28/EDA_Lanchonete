@@ -103,18 +103,21 @@ public class ControlTelaDeVenda {
         DefaultTableModel model = (DefaultTableModel) telaVenda.getTabelaCarrinhoVenda().getModel();
         model.setRowCount(0);
 
+        Fila<ItemVenda> aux = new Fila<>();
+
         while (!this.itens.estaVazia()) {
-
             ItemVenda atual = this.itens.desenfileirar();
+            aux.enfileirar(atual);
 
-            if (atual != null) {
-                model.addRow(new Object[]{
-                    atual.getItem().getId(),
-                    atual.getItem().getNome(),
-                    atual.getQtd()});
+            model.addRow(new Object[]{
+                atual.getItem().getId(),
+                atual.getItem().getNome(),
+                atual.getQtd()
+            });
+        }
 
-            }
-
+        while (!aux.estaVazia()) {
+            this.itens.enfileirar(aux.desenfileirar());
         }
     }
 
@@ -132,7 +135,6 @@ public class ControlTelaDeVenda {
     public void adicionarItemNoCarrinho() {
 
         int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
-
         int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
 
         Fila<Pizza> fila = Pizza.lerPizza();//le pizza ou salgadinhi
@@ -141,50 +143,35 @@ public class ControlTelaDeVenda {
             return; // Sai do método sem executar o restante
         }
 
-        Produto produto = fila.desenfileirar();//pega uma pizza ou slagadinho atribui como produtp
-
+        Produto produto = Produto.lerProdutoPorId(id);//pega uma pizza ou slagadinho atribui como produtp
+        if (produto == null) {
+            System.out.println("nullo");
+            return;
+        }
         //if (itens != null) {
-        itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
-        listarItens();
-        System.out.println(itens.tamanho());
-        itens.mostrarFila();
-        System.out.println(itemAuxiliar.toString());
+        if (!telaVenda.getTfQtd().getText().trim().isEmpty()) {
+            this.itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
+             listarItens();
+        }
+    
 
-        try {
-            float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
-            System.out.println(valorTotal);
-            // ✅ Validar se o valor é válido
-
-            if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
-                telaVenda.getLblValorTotal().setText("0.00");
-                return;
-            }
-
-            // ✅ Garantir que o valor não seja negativo
-            if (valorTotal < 0) {
-                valorTotal = (float) 0.00;
-            }
-
-            // ✅ Formatar com duas casas decimais e locale correto
-            String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
-
-            // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
-            valorFormatado = valorFormatado.replace(".", ",");
-
-            telaVenda.getLblValorTotal().setText(valorFormatado);
-
-        } catch (Exception e) {
-            System.err.println("Erro ao calcular preço total: " + e.getMessage());
-            telaVenda.getLblValorTotal().setText("0,00");
+        float valorTotal = ItemVenda.precoTotal(itens);
+        System.out.println(valorTotal);
+        String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
+        // ✅ Validar se o valor é válido
+        if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
+            telaVenda.getLblValorTotal().setText("0.00");
+            return;
         }
 
-//        } else {
-//            JOptionPane.showMessageDialog(null, "O produto já está na lista", "Produto na Lista", quantidade);
-//
-//        }
-        // Conversão do precoTotal da venda
-        float valorTotal = ItemVenda.precoTotal(itemAuxiliar);
-        String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
+        // ✅ Garantir que o valor não seja negativo
+        if (valorTotal < 0) {
+            valorTotal = (float) 0.00;
+        }
+
+        // ✅ Formatar com duas casas decimais e locale correto
+        // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
+        valorFormatado = valorFormatado.replace(".", ",");
 
         telaVenda.getLblValorTotal().setText(valorFormatado);
 
@@ -201,31 +188,46 @@ public class ControlTelaDeVenda {
             String produtoID = String.valueOf(telaVenda.getTabelaCarrinhoVenda().getValueAt(selectedRow, 0));
             int Id = Integer.parseInt(produtoID);
 
-            // Remover item usando Iterator
-            boolean itemRemovido = false;
-            while (!itens.estaVazia()) {
-                ItemVenda item = itens.desenfileirar();
-                // ✅ CORRETO - Usar equals() para comparação de Long
-                if (item.getItem().getId() == Id) {
-                    itens.desenfileirar();
-                    itemRemovido = true;
-
+            // Remover item usando Iteratorla
+            Fila<ItemVenda> filaAuxiliar=new Fila();
+            
+            while(!this.itens.estaVazia()){
+                ItemVenda atual =this.itens.desenfileirar();
+                if(atual.getItem().getId()!=Id){
+                    filaAuxiliar.enfileirar(atual);
+                }
+          
+            }
+            
+            while(!filaAuxiliar.estaVazia()){
+                this.itens.enfileirar(filaAuxiliar.desenfileirar());
+            }
+            
+            
+//            boolean itemRemovido = false;
+//            while (!itens.estaVazia()) {
+//                ItemVenda item = itens.desenfileirar();
+//                // ✅ CORRETO - Usar equals() para comparação de Long
+//                if (item.getItem().getId() == Id) {
+//                    itens.desenfileirar();
+//                    itemRemovido = true;
+//
                     double valorTotal = ItemVenda.precoTotal(itens);
                     String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
                     telaVenda.getLblValorTotal().setText(valorFormatado);
-                    break;
-                }
-            }
+//                    break;
+//                }
+//            }
 
-            if (itemRemovido) {
+           // if (itemRemovido) {
                 // ✅ CORRETO - Atualizar modelo da tabela
                 listarItens();
-
-                JOptionPane.showMessageDialog(telaVenda, "Item removido com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(telaVenda, "Item não encontrado no carrinho!");
-            }
-
+//
+//                JOptionPane.showMessageDialog(telaVenda, "Item removido com sucesso!");
+//            } else {
+//                JOptionPane.showMessageDialog(telaVenda, "Item não encontrado no carrinho!");
+//            }
+//
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(telaVenda, "Erro ao remover item: " + e.getMessage());
