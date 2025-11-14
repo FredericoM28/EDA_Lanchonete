@@ -4,9 +4,19 @@
  */
 package view;
 
-import java.awt.Toolkit;
-import javax.swing.JOptionPane;
-import javax.tools.Tool;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -20,6 +30,85 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
     public TelaDeGestaoDeUsuarios() {
         initComponents();
         setLocationRelativeTo(null);
+        aplicarEstiloModerno();
+    }
+
+    private void aplicarEstiloModerno() {
+        Color corPrimaria = new Color(41, 128, 185);
+        Color corSecundaria = new Color(52, 152, 219);
+        Color corFundo = new Color(245, 245, 245);
+        Color corSucesso = new Color(46, 204, 113);
+        Color corPerigo = new Color(231, 76, 60);
+
+        getContentPane().setBackground(corFundo);
+        jPanel2.setBackground(corFundo);
+
+        // Estilizar título
+        jLabel6.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        jLabel6.setForeground(corPrimaria);
+
+        // Estilizar labels
+        JLabel[] labels = {jLabel7, jLabel8, jLabel9, jLabel10};
+        for (JLabel label : labels) {
+            label.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            label.setForeground(new Color(44, 62, 80));
+        }
+
+        // Estilizar campos de texto
+        JTextField[] camposTexto = {tfNome, tfNome1};
+        for (JTextField campo : camposTexto) {
+            campo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            campo.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(206, 212, 218)),
+                BorderFactory.createEmptyBorder(5, 8, 5, 8)
+            ));
+        }
+
+        // Estilizar password field
+        pfSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        pfSenha.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+
+        // Estilizar combobox
+        cbNiveldeAcesso.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        cbNiveldeAcesso.setBackground(Color.WHITE);
+        cbNiveldeAcesso.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+
+        // Estilizar botões
+        btnSalvar.setBackground(corSucesso);
+        btnEditar.setBackground(corPrimaria);
+        btnDeletar.setBackground(corPerigo);
+        btnLimpar.setBackground(new Color(149, 165, 166));
+
+        JButton[] botoes = {btnSalvar, btnEditar, btnDeletar, btnLimpar};
+        for (JButton botao : botoes) {
+            botao.setForeground(Color.WHITE);
+            botao.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            botao.setBorder(new EmptyBorder(8, 15, 8, 15));
+            botao.setFocusPainted(false);
+            botao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        }
+
+        // Estilizar tabela
+        jScrollPane1.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(206, 212, 218)),
+            "Lista de Usuários",
+            TitledBorder.DEFAULT_JUSTIFICATION,
+            TitledBorder.DEFAULT_POSITION,
+            new Font("Segoe UI", Font.BOLD, 12),
+            corPrimaria
+        ));
+
+        tabelaUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        tabelaUsuario.setRowHeight(25);
+        tabelaUsuario.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabelaUsuario.getTableHeader().setBackground(corPrimaria);
+        tabelaUsuario.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -49,9 +138,12 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
         tfNome1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestão de Usuários");
         setMaximumSize(new java.awt.Dimension(500, 500));
         setPreferredSize(new java.awt.Dimension(596, 500));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(600, 500));
 
         jLabel6.setText("Gestao de Usuarios");
 
@@ -69,7 +161,7 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
 
         btnSalvar.setText("Salvar");
 
-        cbNiveldeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbNiveldeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Gerente", "Operador", "Usuário" }));
 
         btnEditar.setText("Editar");
 
@@ -123,7 +215,7 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel9)
                             .addGap(18, 18, 18)
-                            .addComponent(cbNiveldeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbNiveldeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(79, 79, 79)
                             .addComponent(btnSalvar)
@@ -141,43 +233,43 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel10)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tfNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(tfNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel6)
-                .addGap(3, 3, 3)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(tfNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(cbNiveldeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnDeletar)
-                    .addComponent(btnLimpar))
+                    .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbNiveldeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
@@ -195,11 +287,6 @@ public class TelaDeGestaoDeUsuarios extends javax.swing.JFrame {
 
     private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
         // TODO add your handling code here:
-         if(Character.isDigit(evt.getKeyChar())){
-           evt.consume();
-             Toolkit.getDefaultToolkit().beep();
-           JOptionPane.showMessageDialog(null, "Digite apenas Texto, digitos não são permitidos");
-       }
     }//GEN-LAST:event_tfNomeKeyTyped
 
     /**
