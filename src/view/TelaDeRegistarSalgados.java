@@ -35,6 +35,7 @@ public class TelaDeRegistarSalgados extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.controlTelaDeSalgados = new ControlTelaDeSalgados(this);
+       // this.controlTelaVenda= new ControlTelaDeVenda(this);
         controlTelaDeSalgados.listarSalgados();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         aplicarEstiloModerno();

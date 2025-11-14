@@ -36,7 +36,7 @@ public class ControlTelaListarVenda {
             if (atual != null) {
                 model.addRow(new Object[]{
                     atual.getIdVenda(),
-                    atual.getItemVenda(),
+                    atual.getItemVenda().toString(),
                     atual.getValorTotal(),
                     atual.getValorRecebido(),
                     atual.getDataDeVenda(),

@@ -27,9 +27,11 @@ public class ControlTelaDeVenda {
     private final TelaDeVenda telaVenda;
     Fila<ItemVenda> itens = new Fila();
     Fila<ItemVenda> itemAuxiliar = new Fila();
+    ControlTelaListarVenda listar;
 
     public ControlTelaDeVenda(TelaDeVenda view) {
         this.telaVenda = view;
+
     }
 
     //Metodo para listar Pizzas
@@ -122,60 +124,178 @@ public class ControlTelaDeVenda {
     }
 
     public void calculoTrocos() {
-        String valorRecebidoTexto = telaVenda.getTfValorRecebido().getText().trim();
+        try {
+            String valorRecebidoTexto = telaVenda.getTfValorRecebido().getText().trim();
 
-        float valorRecebido = Float.parseFloat(valorRecebidoTexto);
-        float troco = ItemVenda.troco(valorRecebido, itens);
-        String trocoTexto = String.valueOf(troco);
-        trocoTexto.replace(",", ".").replaceAll("[^\\d.]", "");
-        telaVenda.getLblTrocos().setText(trocoTexto);
+            if (valorRecebidoTexto.isEmpty()) {
+                telaVenda.getLblTrocos().setText("R$ 0.00");
+                return;
+            }
 
+            // Normalizar formato numérico
+            valorRecebidoTexto = valorRecebidoTexto.replace(",", ".").replaceAll("[^\\d.]", "");
+
+            if (valorRecebidoTexto.isEmpty() || valorRecebidoTexto.equals(".")) {
+                telaVenda.getLblTrocos().setText("R$ 0.00");
+                return;
+            }
+
+            float valorRecebido = Float.parseFloat(valorRecebidoTexto);
+            float troco = ItemVenda.troco(valorRecebido, itens);
+
+            // Formatar como moeda brasileira
+            String trocoTexto = String.format("R$ %.2f", Math.max(0, troco));
+            telaVenda.getLblTrocos().setText(trocoTexto);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(telaVenda, "Digite um valor válido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            telaVenda.getLblTrocos().setText("R$ 0.00");
+        }
     }
+//    public void calculoTrocos() {
+//        String valorRecebidoTexto = telaVenda.getTfValorRecebido().getText().trim();
+//
+//        float valorRecebido = Float.parseFloat(valorRecebidoTexto);
+//        float troco = ItemVenda.troco(valorRecebido, itens);
+//        String trocoTexto = String.format("R$ %.2f",troco);
+//      //  trocoTexto.replace(",", ".").replaceAll("[^\\d.]", "");
+//        telaVenda.getLblTrocos().setText(trocoTexto);
+//
+//    }
 
     public void adicionarItemNoCarrinho() {
+        try {
+            // Validação dos campos de entrada
+            if (telaVenda.getTfIdVenda().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Informe o ID do produto!", "Campo Obrigatório", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
-        int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
+            if (telaVenda.getTfQtd().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Informe a quantidade!", "Campo Obrigatório", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        Fila<Pizza> fila = Pizza.lerPizza();//le pizza ou salgadinhi
-        if (fila.estaVazia()) {
-            JOptionPane.showMessageDialog(null, "Não há salgadinhos disponíveis!", "Estoque Vazio", JOptionPane.WARNING_MESSAGE);
-            return; // Sai do método sem executar o restante
+            // Conversão segura dos valores
+            int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
+            int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
+
+            // Validação da quantidade
+            if (quantidade <= 0) {
+                JOptionPane.showMessageDialog(null, "A quantidade deve ser maior que zero!", "Quantidade Inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Verificar estoque disponível
+            Fila<Pizza> fila = Pizza.lerPizza();
+            if (fila.estaVazia()) {
+                JOptionPane.showMessageDialog(null, "Não há produtos disponíveis!", "Estoque Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Buscar produto pelo ID
+            Produto produto = Produto.lerProdutoPorId(id);
+            if (produto == null) {
+                JOptionPane.showMessageDialog(null, "Produto não encontrado!\nVerifique o ID informado.", "Produto Inexistente", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Adicionar item ao carrinho
+            this.itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);
+
+            // Atualizar interface
+            listarItens();
+            atualizarValorTotal();
+
+            // Limpar campos após adição
+            telaVenda.getTfQtd().setText("1"); // Reset para quantidade padrão
+            telaVenda.getTfIdVenda().requestFocus(); // Foco no campo de ID para próximo produto
+
+            // Feedback de sucesso
+            JOptionPane.showMessageDialog(null,
+                    String.format("%s adicionado ao carrinho!\nQuantidade: %d", produto.getNome(), quantidade),
+                    "Item Adicionado",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,
+                    "ID e Quantidade devem ser números válidos!",
+                    "Erro de Formatação",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao adicionar item: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
-
-        Produto produto = Produto.lerProdutoPorId(id);//pega uma pizza ou slagadinho atribui como produtp
-        if (produto == null) {
-            System.out.println("nullo");
-            return;
-        }
-        //if (itens != null) {
-        if (!telaVenda.getTfQtd().getText().trim().isEmpty()) {
-            this.itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
-             listarItens();
-        }
-    
-
-        float valorTotal = ItemVenda.precoTotal(itens);
-        System.out.println(valorTotal);
-        String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
-        // ✅ Validar se o valor é válido
-        if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
-            telaVenda.getLblValorTotal().setText("0.00");
-            return;
-        }
-
-        // ✅ Garantir que o valor não seja negativo
-        if (valorTotal < 0) {
-            valorTotal = (float) 0.00;
-        }
-
-        // ✅ Formatar com duas casas decimais e locale correto
-        // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
-        valorFormatado = valorFormatado.replace(".", ",");
-
-        telaVenda.getLblValorTotal().setText(valorFormatado);
-
     }
+
+// Método auxiliar para atualizar o valor total
+    private void atualizarValorTotal() {
+        try {
+            float valorTotal = ItemVenda.precoTotal(itens);
+
+            // Validações de segurança
+            if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
+                valorTotal = 0.00f;
+            }
+
+            // Garantir que o valor não seja negativo
+            if (valorTotal < 0) {
+                valorTotal = 0.00f;
+            }
+
+            // Formatar para o padrão brasileiro
+            String valorFormatado = String.format("R$ %.2f", valorTotal).replace(".", ",");
+            telaVenda.getLblValorTotal().setText(valorFormatado);
+
+        } catch (Exception e) {
+            telaVenda.getLblValorTotal().setText("R$ 0,00");
+        }
+    }
+//    public void adicionarItemNoCarrinho() {
+//
+//        int id = Integer.parseInt(telaVenda.getTfIdVenda().getText().trim());
+//        int quantidade = Integer.parseInt(telaVenda.getTfQtd().getText().trim());
+//
+//        Fila<Pizza> fila = Pizza.lerPizza();//le pizza ou salgadinhi
+//        if (fila.estaVazia()) {
+//            JOptionPane.showMessageDialog(null, "Não há salgadinhos disponíveis!", "Estoque Vazio", JOptionPane.WARNING_MESSAGE);
+//            return; // Sai do método sem executar o restante
+//        }
+//
+//        Produto produto = Produto.lerProdutoPorId(id);//pega uma pizza ou slagadinho atribui como produtp
+//        if (produto == null) {
+//            System.out.println("nullo");
+//            return;
+//        }
+//        //if (itens != null) {
+//        if (!telaVenda.getTfQtd().getText().trim().isEmpty()) {
+//            this.itens = ItemVenda.adicionarItem(this.itens, produto, quantidade);//adiciona item, e o metodo retorna o item adicionado
+//            listarItens();
+//        }
+//
+//        float valorTotal = ItemVenda.precoTotal(itens);
+//        System.out.println(valorTotal);
+//        String valorFormatado = String.format(Locale.US, "%.2f", valorTotal);
+//        // ✅ Validar se o valor é válido
+//        if (Float.isNaN(valorTotal) || Float.isInfinite(valorTotal)) {
+//            telaVenda.getLblValorTotal().setText("0.00");
+//            return;
+//        }
+//
+//        // ✅ Garantir que o valor não seja negativo
+//        if (valorTotal < 0) {
+//            valorTotal = (float) 0.00;
+//        }
+//
+//        // ✅ Formatar com duas casas decimais e locale correto
+//        // ✅ Substituir ponto por vírgula se necessário para o formato brasileiro
+//        valorFormatado = valorFormatado.replace(".", ",");
+//
+//        telaVenda.getLblValorTotal().setText(valorFormatado);
+//
+//    }
 
     public void removerItemDoCarinho() {
         try {
@@ -189,21 +309,20 @@ public class ControlTelaDeVenda {
             int Id = Integer.parseInt(produtoID);
 
             // Remover item usando Iteratorla
-            Fila<ItemVenda> filaAuxiliar=new Fila();
-            
-            while(!this.itens.estaVazia()){
-                ItemVenda atual =this.itens.desenfileirar();
-                if(atual.getItem().getId()!=Id){
+            Fila<ItemVenda> filaAuxiliar = new Fila();
+
+            while (!this.itens.estaVazia()) {
+                ItemVenda atual = this.itens.desenfileirar();
+                if (atual.getItem().getId() != Id) {
                     filaAuxiliar.enfileirar(atual);
                 }
-          
+
             }
-            
-            while(!filaAuxiliar.estaVazia()){
+
+            while (!filaAuxiliar.estaVazia()) {
                 this.itens.enfileirar(filaAuxiliar.desenfileirar());
             }
-            
-            
+
 //            boolean itemRemovido = false;
 //            while (!itens.estaVazia()) {
 //                ItemVenda item = itens.desenfileirar();
@@ -212,16 +331,16 @@ public class ControlTelaDeVenda {
 //                    itens.desenfileirar();
 //                    itemRemovido = true;
 //
-                    double valorTotal = ItemVenda.precoTotal(itens);
-                    String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
-                    telaVenda.getLblValorTotal().setText(valorFormatado);
+            double valorTotal = ItemVenda.precoTotal(itens);
+            String valorFormatado = String.valueOf(valorTotal);// Duas casas decimais
+            telaVenda.getLblValorTotal().setText(valorFormatado);
 //                    break;
 //                }
 //            }
 
-           // if (itemRemovido) {
-                // ✅ CORRETO - Atualizar modelo da tabela
-                listarItens();
+            // if (itemRemovido) {
+            // ✅ CORRETO - Atualizar modelo da tabela
+            listarItens();
 //
 //                JOptionPane.showMessageDialog(telaVenda, "Item removido com sucesso!");
 //            } else {
@@ -241,6 +360,7 @@ public class ControlTelaDeVenda {
 
         if (Venda.criarVenda(itens, LocalDate.now(), ValorRecebido)) {
             JOptionPane.showMessageDialog(null, "Venda Finalizada com sucesso");
+           // listar.listarVendas();
         } else {
             System.out.println("Erro ao cria finalizar Venda");
         }

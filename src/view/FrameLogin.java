@@ -4,7 +4,8 @@
  */
 package view;
 
-//import control.ControlTelaDeLogin;
+//import telaDeLogin;
+import control.ControlTelaDeLogin;
 import java.awt.Color;
 import java.awt.color.ColorSpace;
 import java.awt.event.KeyEvent;
@@ -21,16 +22,13 @@ import javax.swing.JTextField;
  */
 public class FrameLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrameLogin
-     */
-   // ControlTelaDeLogin controlteladelogin = new ControlTelaDeLogin(this);
-  //  ControlTelaDeLogin telaDeLogin; // ✅ DECLARE SEM INSTANCIAR AQUI
+   
+  ControlTelaDeLogin telaDeLogin; // ✅ DECLARE SEM INSTANCIAR AQUI
 
     public FrameLogin() {
         initComponents();
         setLocationRelativeTo(null);
-      //  this.telaDeLogin = new ControlTelaDeLogin(this);
+        this.telaDeLogin = new ControlTelaDeLogin(this);
 
     }
 
@@ -430,11 +428,11 @@ public class FrameLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_pfSenhaFocusGained
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
-      //  if (telaDeLogin != null) {
-        //    telaDeLogin.realizarLogin();
-      //  } else {
+        if (telaDeLogin != null) {
+            telaDeLogin.realizarLogin();
+        } else {
             JOptionPane.showMessageDialog(this, "Controlador não inicializado");
-       // }
+        }
 
     }//GEN-LAST:event_btnEntrarMouseClicked
 
@@ -499,7 +497,7 @@ public class FrameLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparCamposFocusLost
 
     private void btnLimparCamposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparCamposMouseClicked
-       // telaDeLogin.limparCamposTelaLogin();
+        // telaDeLogin.limparCamposTelaLogin();
     }//GEN-LAST:event_btnLimparCamposMouseClicked
 
     private void btnLimparCamposMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimparCamposMouseEntered
@@ -516,14 +514,14 @@ public class FrameLogin extends javax.swing.JFrame {
 
     private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-          //  controlteladelogin.realizarLogin();
+            telaDeLogin.realizarLogin();
         }
 
     }//GEN-LAST:event_btnEntrarKeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         int codigo = evt.getKeyCode();
-      //  controlteladelogin.mudarCampos(evt);
+          telaDeLogin.mudarCampos(evt);
 
     }//GEN-LAST:event_formKeyPressed
 
@@ -534,25 +532,22 @@ public class FrameLogin extends javax.swing.JFrame {
 
     private void pfSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfSenhaKeyPressed
         // int codigo=evt.getKeyCode();
-       // controlteladelogin.mudarCampos(evt);
+         telaDeLogin.mudarCampos(evt);
     }//GEN-LAST:event_pfSenhaKeyPressed
 
     private void pfSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfSenhaKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-         //   controlteladelogin.realizarLogin();
+              telaDeLogin.realizarLogin();
         }
     }//GEN-LAST:event_pfSenhaKeyReleased
 
     private void tfNomeDeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeDeUsuarioKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             pfSenha.requestFocus();
         }
     }//GEN-LAST:event_tfNomeDeUsuarioKeyPressed
 
 //Metodos getters e setters
- 
-
-
     public JPanel getBtnEntrar() {
         return btnEntrar;
     }

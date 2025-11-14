@@ -34,6 +34,7 @@ public class TelaDeVenda extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.controlTelaDeVenda = new ControlTelaDeVenda(this);
+        //this.controlTelaListarVenda= new ControlTelaListarVenda();
         controlTelaDeVenda.listarPizzas();
         controlTelaDeVenda.listarSalgados();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -503,7 +504,7 @@ public class TelaDeVenda extends javax.swing.JFrame {
 
     private void btnFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarVendaActionPerformed
         controlTelaDeVenda.finalizarVenda();
-        controlTelaListarVenda.listarVendas();
+        
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 
     private void tabelaPizzaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPizzaVendaMouseClicked
