@@ -146,9 +146,6 @@ public class Usuario implements Serializable {
             if (usuario.getNome().equals(nome)) {
                 usarioLogado = usuario;
 
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Usuário não encotrado");
             }
         }
 
@@ -231,12 +228,12 @@ public class Usuario implements Serializable {
     }
 
     public static boolean login(String nome, String senha) {
-        boolean isValid=false;
+        boolean isValid = false;
         ArrayList<Usuario> listaDeUsuarios = lerUsuario();
         for (Usuario p : listaDeUsuarios) {
             if (p.getNome().equals(nome) && p.getSenha().equals(senha) && p.getStatus() == true) {
-                isValid=true;
-              
+                isValid = true;
+
             }
         }
         return isValid; // Retorna null se não encontrar
