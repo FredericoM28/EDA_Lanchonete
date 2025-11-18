@@ -25,7 +25,7 @@ public class VendaFrame extends JFrame {
     private Fila<ItemVenda> carrinho;
 
     public VendaFrame() {
-        carrinho = new Fila<>();
+        carrinho = new Fila<ItemVenda>();
         initComponents();
         carregarProdutos();
         atualizarTotal();

@@ -38,40 +38,40 @@ public class ItemVenda implements Serializable {
         this.Qtd = Qtd;
     }
 
-//    public static Fila<ItemVenda> adicionarItem(Fila<ItemVenda> fila, Produto produto, int qtd) {
-//        ItemVenda item = new ItemVenda(produto, qtd);
-//        fila.enfileirar(item);
-//        return fila;
-//    }
     public static Fila<ItemVenda> adicionarItem(Fila<ItemVenda> fila, Produto produto, int qtd) {
-        Fila<ItemVenda> auxiliar = new Fila<>();
-        boolean produtoEncontrado = false;
-
-        // Procura pelo produto na fila
-        while (!fila.estaVazia()) {
-            ItemVenda item = fila.desenfileirar();
-
-            if (item.getItem().getId() == produto.getId()) {
-                // Se encontrou o produto, soma a quantidade
-                item.setQtd(item.getQtd() + qtd);
-                produtoEncontrado = true;
-            }
-            auxiliar.enfileirar(item);
-        }
-
-        // Restaura a fila original
-        while (!auxiliar.estaVazia()) {
-            fila.enfileirar(auxiliar.desenfileirar());
-        }
-
-        // Se não encontrou o produto, adiciona novo item
-        if (!produtoEncontrado) {
-            ItemVenda novoItem = new ItemVenda(produto, qtd);
-            fila.enfileirar(novoItem);
-        }
-
+        ItemVenda item = new ItemVenda(produto, qtd);
+        fila.enfileirar(item);
         return fila;
     }
+//    public static Fila<ItemVenda> adicionarItem(Fila<ItemVenda> fila, Produto produto, int qtd) {
+//        Fila<ItemVenda> auxiliar = new Fila<>();
+//        boolean produtoEncontrado = false;
+//
+//        // Procura pelo produto na fila
+//        while (!fila.estaVazia()) {
+//            ItemVenda item = fila.desenfileirar();
+//
+//            if (item.getItem().getId() == produto.getId()) {
+//                // Se encontrou o produto, soma a quantidade
+//                item.setQtd(item.getQtd() + qtd);
+//                produtoEncontrado = true;
+//            }
+//            auxiliar.enfileirar(item);
+//        }
+//
+//        // Restaura a fila original
+//        while (!auxiliar.estaVazia()) {
+//            fila.enfileirar(auxiliar.desenfileirar());
+//        }
+//
+//        // Se não encontrou o produto, adiciona novo item
+//        if (!produtoEncontrado) {
+//            ItemVenda novoItem = new ItemVenda(produto, qtd);
+//            fila.enfileirar(novoItem);
+//        }
+//
+//        return fila;
+//    }
 
     public static Fila<ItemVenda> atualizarQuantidade(Fila<ItemVenda> fila, int id, int novaQuantidade) {
         Fila<ItemVenda> auxiliar = new Fila<>();
@@ -144,16 +144,24 @@ public class ItemVenda implements Serializable {
         };
     }
 
-    public static float precoTotal(Fila<ItemVenda> fila) {
-        float total = 0;
+public static float precoTotal(Fila<ItemVenda> fila) {
+    float total = 0;
+    Fila<ItemVenda> temp = new Fila<>();
 
-        while (!fila.estaVazia()) {
-            ItemVenda obj = fila.desenfileirar();
-            total += obj.getItem().getPreco() * obj.getQtd();
-        }
-        return total;
+    // Calcula o total sem esvaziar a fila original
+    while (!fila.estaVazia()) {
+        ItemVenda obj = fila.desenfileirar();
+        temp.enfileirar(obj);
+        total += obj.getItem().getPreco() * obj.getQtd();
     }
 
+    // Restaura a fila original
+    while (!temp.estaVazia()) {
+        fila.enfileirar(temp.desenfileirar());
+    }
+
+    return total;
+}
     // Calcular o troco
     public static float troco(float valorRecebido, Fila<ItemVenda> fila) {
         float total = precoTotal(fila);
