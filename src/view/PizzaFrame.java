@@ -159,10 +159,11 @@ public class PizzaFrame extends JFrame {
     private void carregarPizzas() {
         tableModel.setRowCount(0);
         Fila<Pizza> pizzas = Pizza.lerPizza();
+        Fila <Pizza> pizzasOrdenadas= Pizza.ordenarPorPreco(pizzas);
         Fila<Pizza> temp = new Fila<>();
 
-        while (!pizzas.estaVazia()) {
-            Pizza pizza = pizzas.desenfileirar();
+        while (!pizzasOrdenadas.estaVazia()) {
+            Pizza pizza = pizzasOrdenadas.desenfileirar();
             temp.enfileirar(pizza);
             
             Object[] rowData = {
