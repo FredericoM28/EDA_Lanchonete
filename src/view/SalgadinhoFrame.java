@@ -123,10 +123,11 @@ public class SalgadinhoFrame extends JFrame {
     private void carregarSalgadinhos() {
         tableModel.setRowCount(0);
         Fila<Salgadinho> salgadinhos = Salgadinho.lerSalgadinho();
+        Fila<Salgadinho> salgadinhoOrdenado= Salgadinho.ordenarPorPreco(salgadinhos);
         Fila<Salgadinho> temp = new Fila<>();
 
-        while (!salgadinhos.estaVazia()) {
-            Salgadinho salgadinho = salgadinhos.desenfileirar();
+        while (!salgadinhoOrdenado.estaVazia()) {
+            Salgadinho salgadinho = salgadinhoOrdenado.desenfileirar();
             temp.enfileirar(salgadinho);
             
             Object[] rowData = {
