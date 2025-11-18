@@ -4,19 +4,17 @@ package view;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author HP
  */
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
+
     private JButton btnPizzas, btnSalgadinhos, btnVendas, btnSair;
 
     public MainFrame() {
@@ -28,7 +26,7 @@ public class MainFrame extends JFrame {
         setTitle("Sistema Pizzaria - Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
-        
+
         // Painel principal com gradiente
         JPanel mainPanel = new JPanel() {
             @Override
@@ -50,7 +48,7 @@ public class MainFrame extends JFrame {
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new FlowLayout());
         headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-        
+
         JLabel lblTitle = new JLabel("🏪 SISTEMA PIZZARIA");
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
         lblTitle.setForeground(Color.WHITE);
@@ -76,6 +74,19 @@ public class MainFrame extends JFrame {
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
         add(mainPanel);
 
+        // No método initComponents() do MainFrame, adicione:
+        JButton btnListarVendas = new JButton("Listar Vendas");
+        // stylizeButton(btnListarVendas, new Color(139, 69, 19)); // Cor marrom
+
+        btnListarVendas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ListaVendasFrame().setVisible(true);
+            }
+        });
+
+// Adicione ao painel de botões
+        buttonPanel.add(btnListarVendas);
         // Event Listeners
         btnPizzas.addActionListener(new ActionListener() {
             @Override
@@ -87,7 +98,7 @@ public class MainFrame extends JFrame {
         btnSalgadinhos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new SalgadinhoFrame().setVisible(true);
+                new SalgadinhoFrame().setVisible(true);
             }
         });
 
@@ -101,9 +112,9 @@ public class MainFrame extends JFrame {
         btnSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(MainFrame.this, 
-                    "Deseja realmente sair do sistema?", "Confirmação", 
-                    JOptionPane.YES_NO_OPTION);
+                int confirm = JOptionPane.showConfirmDialog(MainFrame.this,
+                        "Deseja realmente sair do sistema?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
@@ -119,18 +130,19 @@ public class MainFrame extends JFrame {
         botao.setFocusPainted(false);
         botao.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         botao.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
+
         // Efeito hover
         botao.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 botao.setBackground(cor.brighter());
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 botao.setBackground(cor);
             }
         });
-        
+
         return botao;
     }
 }

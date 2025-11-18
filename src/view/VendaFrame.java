@@ -308,33 +308,122 @@ public class VendaFrame extends JFrame {
             return;
         }
 
-        try {
-            float valorRecebido = Float.parseFloat(txtValorRecebido.getText().trim());
-            float total = Float.parseFloat(txtTotal.getText().replace("Mzn", "").trim());
+        // Validação do campo valor recebido
+        String valorRecebidoStr = txtValorRecebido.getText().trim();
 
-            if (valorRecebido < total) {
-                JOptionPane.showMessageDialog(this, "Valor recebido é menor que o total!", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (valorRecebidoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite o valor recebido do cliente!", "Campo Obrigatório", JOptionPane.WARNING_MESSAGE);
+            txtValorRecebido.requestFocus();
+            return;
+        }
+
+        try {
+            // Remove caracteres não numéricos exceto ponto e vírgula
+            valorRecebidoStr = valorRecebidoStr.replace(",", ".");
+            valorRecebidoStr = valorRecebidoStr.replaceAll("[^\\d.]", "");
+
+            float valorRecebido = Float.parseFloat(valorRecebidoStr);
+
+            // Valida se é positivo
+            if (valorRecebido <= 0) {
+                JOptionPane.showMessageDialog(this, "Valor recebido deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
+                txtValorRecebido.setText("");
+                txtValorRecebido.requestFocus();
                 return;
             }
 
+            // Processa o total
+            String totalStr = txtTotal.getText().replace("Mzn", "").replace(" ", "").trim();
+            totalStr = totalStr.replace(",", ".");
+            float total = Float.parseFloat(totalStr);
+
+            // Validação do valor recebido
+            if (valorRecebido < total) {
+                JOptionPane.showMessageDialog(this,
+                        String.format("Valor insuficiente!\nTotal: Mzn %.2f\nRecebido: Mzn %.2f\nFaltam: Mzn %.2f",
+                                total, valorRecebido, total - valorRecebido),
+                        "Valor Insuficiente", JOptionPane.ERROR_MESSAGE);
+                txtValorRecebido.requestFocus();
+                return;
+            }
+
+            // Confirmação final da venda
+            int confirmacao = JOptionPane.showConfirmDialog(this,
+                    String.format("Confirmar venda?\nTotal: Mzn %.2f\nRecebido: Mzn %.2f\nTroco: Mzn %.2f",
+                            total, valorRecebido, valorRecebido - total),
+                    "Confirmar Venda",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacao != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            // Registra a venda
             boolean sucesso = Venda.criarVenda(carrinho, LocalDate.now(), valorRecebido);
+
             if (sucesso) {
                 JOptionPane.showMessageDialog(this,
-                        String.format("Venda realizada com sucesso!\nTotal: Mzn %.2f\nTroco: Mzn %.2f",
-                                total, valorRecebido - total),
-                        "Venda Concluída", JOptionPane.INFORMATION_MESSAGE);
+                        String.format("✅ Venda registrada com sucesso!\n\nTotal: Mzn %.2f\nRecebido: Mzn %.2f\nTroco: Mzn %.2f",
+                                total, valorRecebido, valorRecebido - total),
+                        "Venda Concluída",
+                        JOptionPane.INFORMATION_MESSAGE);
 
+                // Limpa tudo após venda
                 carrinho = new Fila<>();
                 atualizarCarrinho();
                 atualizarTotal();
                 txtValorRecebido.setText("");
                 txtTroco.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Erro ao registrar venda no sistema!",
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Valor recebido deve ser um número válido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Formato inválido!\n\nUse apenas números.\nExemplos:\n• 100\n• 50.50\n• 25,75",
+                    "Valor Inválido",
+                    JOptionPane.ERROR_MESSAGE);
+            txtValorRecebido.setText("");
+            txtValorRecebido.requestFocus();
         }
     }
 
+//    private void finalizarVenda() {
+//        if (carrinho.estaVazia()) {
+//            JOptionPane.showMessageDialog(this, "Carrinho vazio! Adicione produtos antes de finalizar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//
+//       // try {
+//            float valorRecebido = Float.parseFloat(txtValorRecebido.getText().trim());
+//            float total = Float.parseFloat(txtTotal.getText().replace("Mzn", "").trim());
+//
+//            if (valorRecebido < total) {
+//                JOptionPane.showMessageDialog(this, "Valor recebido é menor que o total!", "Erro", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            boolean sucesso = Venda.criarVenda(carrinho, LocalDate.now(), valorRecebido);
+//            if (sucesso) {
+//                JOptionPane.showMessageDialog(this,
+//                        String.format("Venda realizada com sucesso!\nTotal: Mzn %.2f\nTroco: Mzn %.2f",
+//                                total, valorRecebido - total),
+//                        "Venda Concluída", JOptionPane.INFORMATION_MESSAGE);
+//
+//                carrinho = new Fila<>();
+//                atualizarCarrinho();
+//                atualizarTotal();
+//                txtValorRecebido.setText("");
+//                txtTroco.setText("");
+//            }
+//       // } catch (NumberFormatException e) {
+//          //  JOptionPane.showMessageDialog(this, "Valor recebido deve ser um número válido!", "Erro", JOptionPane.ERROR_MESSAGE);
+//        //}
+//    }
     private void calcularTroco() {
         try {
             if (!txtValorRecebido.getText().trim().isEmpty()) {
